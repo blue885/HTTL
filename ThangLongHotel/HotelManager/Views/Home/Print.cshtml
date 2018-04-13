@@ -1,0 +1,212 @@
+﻿@using MvcReportViewer;
+@model HotelManager.ViewModels.PrintViewModel
+
+@{Layout = null;}
+
+
+@Html.MvcReportViewerFluent("/HotelManager/BillingReceipt").ReportParameters(new { BillingID = @Model.Id }).Attributes(new { Height = 1100, Width = 1150, style = "border: none" }).ControlSettings(new ControlSettings() { ShowParameterPrompts = false })
+
+
+
+
+
+
+
+
+@*Click Tools -> Internet options.
+Switch to the Security tab, select the Trusted sites zone, and then click Sites.
+Type the URL of the SQL reporting server, click Add, and then click Close.
+Click the Custom level button, scroll to the ActiveX controls and plug-ins node.
+Click Enable for Download signed ActiveX controls, and then click OK.*@
+
+
+
+
+
+
+
+
+@*@model HotelManager.ViewModels.BillingViewModels
+    <div>
+        <div style="height:35px; width:350px; text-align:right; margin-right:10px">
+            <h3>Tân Thành</h3>
+        </div>
+        <dl class="dl-print">
+
+            <dt>
+                @Html.Label("Hóa đơn")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BillingMaster.ListRoom.Description)
+            </dd>
+
+            <dt>
+                @Html.Label("Ngày vào")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BillingMaster.ArrivalDate)
+            </dd>
+
+            <dt>
+                @Html.Label("Ngày ra")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BillingMaster.DepartureDate)
+            </dd>
+
+            <dt>
+                @Html.Label("Thời gian")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BillingMaster.ChargeDuration)
+            </dd>
+
+            <dt>
+                @Html.Label("Tiền phòng (1)")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BillingMaster.ChargeAmount)
+            </dd>
+
+            <dt>
+                @Html.Label("Giảm giá (2)")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BillingMaster.DiscountAmount)
+            </dd>
+
+
+            <dt>
+                @Html.Label(" ")
+            </dt>
+
+            <dd>
+                @Html.Label(" ")
+            </dd>
+
+            @foreach (var items in Model.BillingDetailFulls)
+            {
+
+                <dt>
+                    @Html.DisplayFor(modelItem => items.Quantity) x
+                    @Html.DisplayFor(modelItem => items.ServiceName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(modelItem => items.Amount)
+
+                </dd>
+            }
+
+            <dt>
+                @Html.Label("Tổng tiền dịch vụ (3)")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BillingMaster.ServiceAmount)
+            </dd>
+
+            <dt>
+                @Html.Label(" ")
+            </dt>
+
+            <dd>
+                @Html.Label(" ")
+            </dd>
+
+
+            <dt>
+                @Html.Label("Tiền dịch vụ khác (4)")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BillingMaster.OtherAmount)
+            </dd>
+
+            <dt>
+                @Html.Label("Trả trước (5)")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BillingMaster.AdvancePayment)
+            </dd>
+
+            <dt>
+                @Html.Label("Tổng cộng (1)-(2)+(3)+(4)-(5)")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BillingMaster.TotalAmount)
+            </dd>
+
+            <dt>
+                @Html.Label("Ghi chú")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BillingMaster.Remarks)
+            </dd>
+        </dl>
+
+        <div style="width:350; text-align:center; height:80px">
+            <label> Chữ ký của khách hàng</label>
+        </div>
+
+        <div style="width:350; text-align:center;">
+            <label>@Html.DisplayFor(model => model.BillingMaster.CustomerName)</label>
+        </div>
+    </div>
+    <p>
+        <input type="button" value="Print" class="btn btn-default" onclick="printDiv()" style=" margin-left:20px " />
+    </p>
+
+    <style type="text/css">
+        .dl-print dt {
+            float: left;
+            width: 190px;
+            overflow: hidden;
+            clear: left;
+            text-align: left;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            margin-left: 20px;
+            font-weight: normal;
+        }
+
+        .dl-print dd {
+            margin-left: 220px;
+        }
+
+            .dl-print dd:before,
+            .dl-print dd:after {
+                display: table;
+                content: " ";
+            }
+
+            .dl-print dd:after {
+                clear: both;
+            }
+
+            .dl-print dd:before,
+            .dl-print dd:after {
+                display: table;
+                content: " ";
+            }
+
+            .dl-print dd:after {
+                clear: both;
+            }
+    </style>*@
+
+
+@*<script language="javascript" type="text/javascript">
+    window.onload = function () {
+        window.print();
+        window.close();
+    };
+</script>*@
