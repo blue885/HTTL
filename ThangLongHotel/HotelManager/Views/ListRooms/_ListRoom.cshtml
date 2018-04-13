@@ -19,7 +19,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.HotelID, "HotelID", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.HotelID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.Kendo().DropDownListFor(m => m.HotelID).BindTo(Model.HotelSelectList).HtmlAttributes(new { @class = "input-class" })                
                 @Html.ValidationMessageFor(model => model.HotelID, "", new { @class = "text-danger" })
@@ -27,7 +27,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.RoomTypeID, "RoomTypeID", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.RoomTypeID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.Kendo().DropDownListFor(m => m.RoomTypeID).BindTo(Model.RoomTypeSelectList).HtmlAttributes(new { @class = "input-class" })                
                 @Html.ValidationMessageFor(model => model.RoomTypeID, "", new { @class = "text-danger" })
@@ -35,7 +35,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.RoomStatusID, "RoomStatusID", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.RoomStatusID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.Kendo().DropDownListFor(m => m.RoomStatusID).BindTo(Model.RoomStatusesSelectList).HtmlAttributes(new { @class = "input-class" })                
                 @Html.ValidationMessageFor(model => model.RoomStatusID, "", new { @class = "text-danger" })

@@ -10,7 +10,7 @@
         @Html.HiddenFor(m => m.ChargeRateID);
 
         <div class="form-group">
-            @Html.LabelFor(model => model.RoomTypeID, "RoomTypeID", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.RoomTypeID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">                
                 @Html.Kendo().DropDownListFor(m => m.RoomTypeID).BindTo(Model.RoomTypeSelectList).HtmlAttributes(new { @class = "input-class" })
                 @Html.ValidationMessageFor(model => model.RoomTypeID, "", new { @class = "text-danger" })
@@ -18,20 +18,20 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ChargeTypeID, "ChargeTypeID", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ChargeTypeID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">                
                 @Html.Kendo().DropDownListFor(m => m.ChargeTypeID).BindTo(Model.ChargeTypeSelectList).HtmlAttributes(new { @class = "input-class" })
                 @Html.ValidationMessageFor(model => model.ChargeTypeID, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
+        @*<div class="form-group">
             @Html.LabelFor(model => model.ChargeVolumn, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.Kendo().NumericTextBoxFor(model => model.ChargeVolumn)
                 @Html.ValidationMessageFor(model => model.ChargeVolumn, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.ChargeRate, htmlAttributes: new { @class = "control-label col-md-2" })

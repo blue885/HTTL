@@ -62,7 +62,7 @@ namespace HotelManager.ViewModels
                               {
                                   BillingID = 0,
                                   CustomerName = "",
-                                  CustomerIdentityNo = "$",
+                                  CustomerIdentityNo = "Cộng",
                                   TotalAmount = billingGroupByDate.Sum(a => a.TotalAmount),
                                   ArrivalDate = billingGroupByDate.Key.DepartureDate.Value,
                                   DepartureDate = billingGroupByDate.Key.DepartureDate,
