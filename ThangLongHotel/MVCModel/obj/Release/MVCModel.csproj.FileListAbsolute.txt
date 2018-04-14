@@ -1,9 +1,0 @@
-D:\MVC\ThangLongHotel\trunk\MVCModel\bin\Release\MVCModel.dll.config
-D:\MVC\ThangLongHotel\trunk\MVCModel\bin\Release\MVCModel.dll
-D:\MVC\ThangLongHotel\trunk\MVCModel\bin\Release\MVCModel.pdb
-D:\MVC\ThangLongHotel\trunk\MVCModel\bin\Release\EntityFramework.dll
-D:\MVC\ThangLongHotel\trunk\MVCModel\bin\Release\EntityFramework.SqlServer.dll
-D:\MVC\ThangLongHotel\trunk\MVCModel\bin\Release\EntityFramework.xml
-D:\MVC\ThangLongHotel\trunk\MVCModel\bin\Release\EntityFramework.SqlServer.xml
-D:\MVC\ThangLongHotel\trunk\MVCModel\obj\Release\MVCModel.dll
-D:\MVC\ThangLongHotel\trunk\MVCModel\obj\Release\MVCModel.pdb
