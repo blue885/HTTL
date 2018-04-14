@@ -17,9 +17,9 @@ namespace MVCDTO.CommonTasks
 
         [Display(Name = "Diễn giải")]
         public string Description { get; set; }
-        [Display(Name = "Loại hình")]
+        [Display(Name = "Khách sạn/ nhà hàng")]
         public int HotelID { get; set; }
-        [Display(Name = "Loại hình")]
+        [Display(Name = "Khách sạn/ nhà hàng")]
         public string ListHotelDescription { get; set; }
         [Display(Name = "Loại phòng")]
         public int RoomTypeID { get; set; }

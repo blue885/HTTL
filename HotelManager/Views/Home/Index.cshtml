@@ -25,14 +25,13 @@
     <tr>
         <td>
             <div id="popupWindowDetail"></div>
-            <div id="scheduler-div" style="margin-bottom:22px; margin-top:10px">
-                <label>Chú thích: </label>
-                <label style="width: 20px; height:14px; background-color:#f8a398; margin: 0;"></label>
-                <label>Khách đang ở</label>
-                <label style="width: 20px; height:14px; background-color:#51a0ed; margin: 0 0 0 10px;"></label>
-                <label>Khách đã trả phòng</label>
-                <label style="width: 20px; height:14px; background-color:#0A7A06; margin: 0 0 0 10px;"></label>
-                <label>Tổng tiền thu trong ngày</label>
+            <div id="scheduler-div" style="margin-bottom:22px; margin-top:10px">                                    
+                    <label class="radius-color-note" style="background-color:#f8a398;"></label>
+                    <label class="note-billinglog-label">Khách đang ở</label>
+                    <label class="radius-color-note" style="background-color:#51a0ed; margin-left: 10px;"></label>
+                    <label class="note-billinglog-label">Khách đã trả phòng</label>
+                    <label class="radius-color-note" style="background-color:#0A7A06; margin-left: 10px;"></label>
+                    <label class="note-billinglog-label">Tổng tiền thu trong ngày</label>                
 
                 @Html.Partial("BillingLog")
             </div>
@@ -488,5 +487,17 @@
             height: 0;
             padding: 0;
             overflow: hidden;
+        }
+
+        .note-billinglog-label {
+            color: #9b9993;
+            font-weight: lighter;
+        }
+
+        .radius-color-note {
+            width: 20px;
+            height: 14px;
+            border-radius: 2px;
+            margin-bottom: -2px;
         }
     </style>

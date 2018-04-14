@@ -14,7 +14,7 @@ namespace MVCDTO.CommonTasks
         public void SetID(int id) { this.ServiceID = id; }
 
         public int ServiceID { get; set; }
-        [Display(Name = "Tên DV/Hàng hóa")]
+        [Display(Name = "Tên Hàng hóa/ DV")]
         public string Description { get; set; }
         [Display(Name = "Đơn vị tính")]
         public string UnitForSales { get; set; }

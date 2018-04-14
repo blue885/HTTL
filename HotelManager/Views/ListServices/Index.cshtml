@@ -19,7 +19,7 @@
             .Columns(columns =>
             {
                 columns.Bound(p => p.ServiceID).Title("ServiceID").Hidden();
-                columns.Bound(p => p.Description).Title("Tên DV/Hàng hóa").Width(200);
+                columns.Bound(p => p.Description).Title("Tên Hàng hóa/ DV").Width(200);
                 columns.Bound(p => p.UnitForSales).Title("Đơn vị tính").Width(200);
                 columns.Bound(p => p.UnitPrice).Title("Đơn giá").Format("{0:n0}").Filterable(false).Width(150).HtmlAttributes(new { @class = "grid-number-column" });
                 columns.Bound(p => p.Remarks).Title("Ghi chú").Filterable(false).Width(150);
