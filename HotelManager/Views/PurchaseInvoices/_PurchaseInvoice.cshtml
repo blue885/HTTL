@@ -170,7 +170,7 @@
                     .Navigatable()
                     .ToolBar(toolbar =>
                     {
-                        toolbar.Create();
+                        toolbar.Create().Text("Thêm dòng mới");
                     })
 
                     .Editable(editable => editable.Mode(GridEditMode.InCell).DisplayDeleteConfirmation(true).CreateAt(GridInsertRowPosition.Bottom))

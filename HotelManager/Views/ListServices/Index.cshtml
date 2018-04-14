@@ -19,15 +19,15 @@
             .Columns(columns =>
             {
                 columns.Bound(p => p.ServiceID).Title("ServiceID").Hidden();
-                columns.Bound(p => p.Description).Title("Description").Width(200);
-                columns.Bound(p => p.UnitForSales).Title("GraceMinutes").Width(200);
-                columns.Bound(p => p.UnitPrice).Title("HoursPerBlock").Format("{0:n0}").Filterable(false).Width(150).HtmlAttributes(new { @class = "grid-number-column" });
+                columns.Bound(p => p.Description).Title("Tên DV/Hàng hóa").Width(200);
+                columns.Bound(p => p.UnitForSales).Title("Đơn vị tính").Width(200);
+                columns.Bound(p => p.UnitPrice).Title("Đơn giá").Format("{0:n0}").Filterable(false).Width(150).HtmlAttributes(new { @class = "grid-number-column" });
                 columns.Bound(p => p.Remarks).Title("Ghi chú").Filterable(false).Width(150);
                 columns.Template(model => null)
                     .Width(200)
                    .ClientTemplate("<a class='k-button' style='padding-left:5px; min-width:28px; width:28px' href='" + Url.RouteUrl("Default", new { controller = "ListServices", action = "Edit" }) + "/#= ServiceID #'><span class='k-icon k-edit'></span></a>  <a class='k-button' style='padding-left:0px; padding-right:0px; min-width:28px; width:28px' href='javascript:void(0)'><text style='padding-left:5px; padding-right:5px' onclick='delete_click(#= ServiceID #)'><span class='k-icon k-delete'></span></text></a>");
             })
-            .ToolBar(toolbar => toolbar.Custom().Action("Create", "ListServices"))
+            .ToolBar(toolbar => toolbar.Custom().Action("Create", "ListServices").Text("Thêm"))
             .Pageable()
             .Groupable()
             .Filterable()

@@ -12,3 +12,5 @@ MVCModel/App.config
 HotelManager/Web.config
 HotelManager/Web.config
 MVCModel/App.config
+*.dll
+*.dll
