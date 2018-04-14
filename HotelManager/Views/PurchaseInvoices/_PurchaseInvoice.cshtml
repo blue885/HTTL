@@ -1,0 +1,241 @@
+﻿@using Microsoft.AspNet.Identity
+@using HotelManager.ViewModels.PurchaseTasks
+@using HotelManager.Configuration
+
+@model HotelManager.ViewModels.PurchaseTasks.PurchaseInvoiceViewModel
+
+
+<div id="popupWindow" style="position: absolute"></div>
+
+
+<div id="div-form" style="width:1000px;">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="div-main" style="width:1000px;">
+
+            <div id="div-caption">
+                <h3 style="float: left">Hóa đơn mua hàng</h3>
+                <div id="div-alert" style="display:none; float: left; margin-top: 10px; padding-left: 5px;">
+                    <a href="javascript:void(0)">
+                        <img src="~/Content/Images/alert1.png" alt="Alert" onclick="alert_click()" />
+                    </a>
+                </div>
+            </div>
+            <div style="clear:both"></div>
+            <hr style="margin-top: 2px; margin-bottom: 5px;" />
+
+            @Html.ValidationSummary()
+
+            @if (!ViewData.ModelMetadata.IsNullableValueType && @ViewData.ModelState.Values.Where(v => v.Errors.Count != 0).Count() > 0)
+            {
+                <input type="hidden" id="isValid" value="1" />
+            }
+
+
+
+
+            @Html.HiddenFor(model => model.PurchaseInvoiceID)
+            @*@Html.HiddenFor(model => model.HotelID)*@
+            @Html.HiddenFor(model => model.TotalQuantity)
+            @Html.HiddenFor(model => model.TotalAmount)
+            @Html.HiddenFor(model => model.TotalVATAmount)
+            @Html.HiddenFor(model => model.TotalGrossAmount)
+
+            <div class="div-left">
+                    <div class="form-group1">
+                        @Html.LabelFor(model => model.PurchaseInvoiceReference, htmlAttributes: new { @class = "control-label1" })
+                        <div class="div-input">
+                            @Html.Kendo().MaskedTextBoxFor(model => model.PurchaseInvoiceReference).HtmlAttributes(new { @class = "input-class" })
+                            @Html.ValidationMessageFor(model => model.PurchaseInvoiceReference, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group1">
+                        @Html.LabelFor(model => model.PurchaseInvoiceDate, htmlAttributes: new { @class = "control-label1" })
+                        <div class="div-input">
+                            @Html.Kendo().DateTimePickerFor(model => model.PurchaseInvoiceDate).HtmlAttributes(new { @class = "input-class" })
+                            @Html.ValidationMessageFor(model => model.PurchaseInvoiceDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                    <div class="form-group1">
+                        @Html.LabelFor(model => model.SupplierName, htmlAttributes: new { @class = "control-label1" })
+                        <div class="div-input">                            
+                            @(Html.Kendo().AutoCompleteFor(m => m.SupplierName)
+                                .Name("SupplierName")
+                                .DataTextField("SupplierName")
+                                .Filter("contains")
+                                .MinLength(SettingsManager.AutoCompleteMinLenght)                                
+                                .DataSource(source =>
+                                {
+                                    source.Read(read =>
+                                    {
+                                        read.Action("SearchPurchaseInvoiceBySupplierName", "PurchaseInvoicesApi").Data("onAdditionalPurchaseInvoiceData");
+                                    })
+                                    .ServerFiltering(true);
+                                })                                                                
+                                .HtmlAttributes(new { @class = "input-class" })
+                            )
+                            @Html.ValidationMessageFor(model => model.SupplierName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group1">
+                        @Html.LabelFor(model => model.AttentionName, htmlAttributes: new { @class = "control-label1" })
+                        <div class="div-input">
+                            @Html.Kendo().MaskedTextBoxFor(model => model.AttentionName).HtmlAttributes(new { @class = "input-class" })
+                            @Html.ValidationMessageFor(model => model.AttentionName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+             
+                    <div class="form-group1">
+                          @Html.LabelFor(model => model.HotelID, htmlAttributes: new { @class = "control-label1" })
+                        <div class="div-input">
+                            @Html.Kendo().DropDownListFor(m => m.HotelID).BindTo(Model.HotelSelectList).HtmlAttributes(new { @class = "input-class" })
+                            @Html.ValidationMessageFor(model => model.HotelID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group1">
+                        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label1" })
+                        <div class="div-input">
+                            @Html.Kendo().MaskedTextBoxFor(model => model.Description).HtmlAttributes(new { @class = "input-class" })
+                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group1">
+                        @Html.LabelFor(model => model.Remarks, htmlAttributes: new { @class = "control-label1" })
+                        <div class="div-input">
+                            @Html.Kendo().MaskedTextBoxFor(model => model.Remarks).HtmlAttributes(new { @class = "input-class" })
+                            @Html.ValidationMessageFor(model => model.Remarks, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                </div>
+        </div>
+
+        <input type='hidden' id='ListServiceDescriptionTemp' value='' />
+
+        <div class="div-right">
+            <div>
+                @(Html.Kendo().Grid(Model.PurchaseInvoiceDetails)
+                    .Name("purchaseInvoiceDetailsGrid")
+                    .Columns(columns =>
+                    {
+                        //Hidden field
+                        columns.Bound(p => p.PurchaseInvoiceDetailID).Title("PurchaseInvoiceDetailID").Filterable(false).Hidden()
+                            .ClientTemplate("#= PurchaseInvoiceDetailID #" + "<input type='hidden' name='PurchaseInvoiceDetails[#= index(data) #].PurchaseInvoiceDetailID' value='#= PurchaseInvoiceDetailID #' />");
+                        columns.Bound(p => p.PurchaseInvoiceID).Title("PurchaseInvoiceID").Filterable(false).Hidden()
+                           .ClientTemplate("#= PurchaseInvoiceID #" + "<input type='hidden' name='PurchaseInvoiceDetails[#= index(data) #].PurchaseInvoiceID' value='#= PurchaseInvoiceID #' />");
+                        columns.Bound(p => p.ServiceID).Title("ServiceID").Filterable(false).Hidden()
+                           .ClientTemplate("#= ServiceID #" + "<input type='hidden' name='PurchaseInvoiceDetails[#= index(data) #].ServiceID' value='#= ServiceID #' />");
+                        columns.Bound(p => p.Remarks).Title("Remarks").Filterable(false).Hidden()
+                            .ClientTemplate("#= (Remarks == null)? '' : Remarks #" + "<input type='hidden' name='PurchaseInvoiceDetails[#= index(data) #].Remarks' value='#= (Remarks == null) ? '' : Remarks #' />");
+                        columns.Bound(p => p.QuantityInvoice).Title("QuantityInvoice").Filterable(false).Width(70).HtmlAttributes(new { @class = "grid-number-column" }).Hidden()
+                            .ClientFooterTemplate("#= kendo.toString(sum, 'n0') #")
+                            .ClientTemplate("#= QuantityInvoice #" + "<input type='hidden' name='PurchaseInvoiceDetails[#= index(data) #].QuantityInvoice' value='#= QuantityInvoice #' />");
+                        columns.Bound(p => p.VATAmount).Title("VATAmount").Filterable(false).Width(100).HtmlAttributes(new { @class = "grid-number-column" }).Hidden()
+                           .Format("{0:n0}")
+                           .ClientFooterTemplate("#= kendo.toString(sum, 'n0') #")
+                           .ClientTemplate("#= kendo.toString(VATAmount, 'n0') #" + "<input type='hidden' name='PurchaseInvoiceDetails[#= index(data) #].VATAmount' value='#= VATAmount #' />");
+                        //Visible field
+                        columns.Template(t => { }).Title("&nbsp;").ClientTemplate("#= RowNumber(data) #").Width(35);
+                        columns.Bound(p => p.ListServiceDescription).Title("Mặt hàng").Filterable(false).Width(200)
+                            .ClientFooterTemplate("Total:")
+                            .ClientTemplate("#= ListServiceDescription #" + "<input type='hidden' name='PurchaseInvoiceDetails[#= index(data) #].ListServiceDescription' value='#= ListServiceDescription #' />");
+                        columns.Bound(p => p.Quantity).Title("SL").Filterable(false).Width(70).HtmlAttributes(new { @class = "grid-number-column" })
+                            .ClientFooterTemplate("#= kendo.toString(sum, 'n0') #")
+                            .ClientTemplate("#= Quantity #" + "<input type='hidden' name='PurchaseInvoiceDetails[#= index(data) #].Quantity' value='#= Quantity #' />");
+                        columns.Bound(p => p.UnitPrice).Title("Đơn giá").Filterable(false).Width(100).HtmlAttributes(new { @class = "grid-number-column" })
+                            .Format("{0:n0}")
+                            .ClientFooterTemplate("#= kendo.toString(sum, 'n0') #")
+                            .ClientTemplate("#= kendo.toString(UnitPrice, 'n0') #" + "<input type='hidden' name='PurchaseInvoiceDetails[#= index(data) #].UnitPrice' value='#= UnitPrice #' />");
+                        columns.Bound(p => p.Amount).Title("Thành tiền").Filterable(false).Width(110).HtmlAttributes(new { @class = "grid-number-column" })
+                            .Format("{0:n0}")
+                            .ClientFooterTemplate("#= kendo.toString(sum, 'n0') #")
+                            .ClientTemplate("#= kendo.toString(Amount, 'n0') #" + "<input type='hidden' name='PurchaseInvoiceDetails[#= index(data) #].Amount' value='#= Amount #' />");
+                        columns.Bound(p => p.VATPercent).Title("VAT").Filterable(false).Width(60).HtmlAttributes(new { @class = "grid-number-column" })
+                            .Format("{0:n0}")
+                            .ClientTemplate("#= kendo.format('{0:n0} %', VATPercent) #" + "<input type='hidden' name='PurchaseInvoiceDetails[#= index(data) #].VATPercent' value='#= VATPercent #' />");
+                        columns.Bound(p => p.GrossAmount).Title("Tổng tiền").Filterable(false).Width(110).HtmlAttributes(new { @class = "grid-number-column" })
+                            .Format("{0:n0}")
+                            .ClientFooterTemplate("#= kendo.toString(sum, 'n0') #")
+                            .ClientTemplate("#= kendo.toString(GrossAmount, 'n0') #" + "<input type='hidden' name='PurchaseInvoiceDetails[#= index(data) #].GrossAmount' value='#= GrossAmount #' />");
+                        columns.Command(command => { command.Destroy().Text("<span class='command' ></span>"); }).Width(50);
+                    })
+                    .Scrollable(s => s.Height(350))
+                    .Filterable()
+                    .Navigatable()
+                    .ToolBar(toolbar =>
+                    {
+                        toolbar.Create();
+                    })
+
+                    .Editable(editable => editable.Mode(GridEditMode.InCell).DisplayDeleteConfirmation(true).CreateAt(GridInsertRowPosition.Bottom))
+                    .Selectable(settings =>
+                    {
+                        settings.Mode(GridSelectionMode.Multiple);
+                        settings.Type(GridSelectionType.Row);
+                    })
+                    .Events(events =>
+                    {
+                        events.DataBound("purchaseInvoiceDetailsGrid_DataBound");
+                        events.Change("purchaseInvoiceDetailsGrid_Change");
+                    })
+                    .DataSource(dataSource => dataSource
+                                .Ajax()
+                                .Batch(true)
+                                .ServerOperation(false)
+                                .Model(model =>
+                                {
+                                    model.Id(x => x.PurchaseInvoiceDetailID);
+                                    model.Field(m => m.PurchaseInvoiceDetailID).DefaultValue(0);
+                                    model.Field(m => m.PurchaseInvoiceID).DefaultValue(@Model.PurchaseInvoiceID);
+                                    model.Field(m => m.QuantityInvoice).DefaultValue(0);
+                                    model.Field(m => m.Quantity).DefaultValue(0);
+                                })
+                                .Events(events =>
+                                {
+                                    events.Change("purchaseInvoiceDetailsGrid_DataSourceChange");
+                                    events.Error("error_handler");
+                                })
+                                .Aggregates(a => a.Add(x => x.UnitPrice).Sum())
+                                .Aggregates(a => a.Add(x => x.QuantityInvoice).Sum())
+                                .Aggregates(a => a.Add(x => x.Quantity).Sum())
+                                .Aggregates(a => a.Add(x => x.GrossAmount).Sum())
+                                .Aggregates(a => a.Add(x => x.VATAmount).Sum())
+                                .Aggregates(a => a.Add(x => x.Amount).Sum())
+                                )
+                )
+
+            </div>
+
+        </div>
+
+
+        <div class="div-button">            
+            <input id="submitButton" type="submit" value="Lưu" class="k-button custom-button" />
+            <input id="backButton" type="submit" formaction="@Url.Action("Index", "PurchaseInvoices")" value="Trở về" class="k-button custom-button" />                        
+        </div>
+    }
+</div>
+
+
+
+
+
+<link href="@Url.Content("~/Content/CustomCss/FourColumn.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/Scripts/PurchaseTasks/PurchaseInvoice.js")"></script>
+
+<style type="text/css">    
+
+div.k-grid tbody .k-button
+{
+    min-width: 28px;
+    width: 28px;
+}
+
+</style>
+

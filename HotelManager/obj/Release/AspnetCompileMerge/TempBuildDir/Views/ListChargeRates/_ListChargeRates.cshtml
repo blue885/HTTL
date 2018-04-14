@@ -1,0 +1,76 @@
+﻿@model HotelManager.ViewModels.CommonTasks.ListChargeRateViewModel
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">      
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @Html.HiddenFor(m => m.ChargeRateID);
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.RoomTypeID, "RoomTypeID", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">                
+                @Html.Kendo().DropDownListFor(m => m.RoomTypeID).BindTo(Model.RoomTypeSelectList).HtmlAttributes(new { @class = "input-class" })
+                @Html.ValidationMessageFor(model => model.RoomTypeID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ChargeTypeID, "ChargeTypeID", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">                
+                @Html.Kendo().DropDownListFor(m => m.ChargeTypeID).BindTo(Model.ChargeTypeSelectList).HtmlAttributes(new { @class = "input-class" })
+                @Html.ValidationMessageFor(model => model.ChargeTypeID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ChargeVolumn, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.Kendo().NumericTextBoxFor(model => model.ChargeVolumn)
+                @Html.ValidationMessageFor(model => model.ChargeVolumn, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ChargeRate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.Kendo().NumericTextBoxFor(model => model.ChargeRate).Spinners(false)
+                @Html.ValidationMessageFor(model => model.ChargeRate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ChargeRateUpper, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.Kendo().NumericTextBoxFor(model => model.ChargeRateUpper).Spinners(false)
+                @Html.ValidationMessageFor(model => model.ChargeRateUpper, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Remarks, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Remarks, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Remarks, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input id="submitButton" type="submit" value="Lưu" class="k-button custom-button" />
+                <input id="backButton" type="submit" formaction="@Url.Action("Index", "ListChargeRates")" value="Trở về" class="k-button custom-button" />
+            </div>
+        </div>
+    </div>
+}
+

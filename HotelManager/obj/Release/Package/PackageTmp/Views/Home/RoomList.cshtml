@@ -1,0 +1,105 @@
+﻿@using HotelManager.Configuration
+@model HotelManager.ViewModels.HomeViewModel
+
+<div class="genre" style="width: 900px">
+    <ul id="room-list">
+
+        @foreach (var hotelFloorLevels in Model.HotelFloorLevels)
+        {
+            <li style="width: 880px; height: 135px; font-size: small ">
+                <h3 style="height: 15px; width: 900px; ">@hotelFloorLevels.Description [@hotelFloorLevels.FloorLevel] </h3>
+                @foreach (var hotelRooms in Model.HotelRooms)
+                {
+                    if (hotelFloorLevels.HotelID == hotelRooms.HotelID && hotelFloorLevels.FloorLevel == hotelRooms.FloorLevel)
+                    {
+                        <a href="@Url.Action("Billing", new { roomCategoryID = @hotelRooms.RoomCategoryID, id = hotelRooms.RoomID })" billingid="@hotelRooms.BillingID" roomid="@hotelRooms.RoomID" roomcategoryid="@hotelRooms.RoomCategoryID" class="lnkCreate" style="width: @hotelRooms.SpanWidth; height: @hotelRooms.SpanHeight; float: left; margin-right: 5px; text-align: center;">
+                            <img alt="@hotelRooms.RoomDescription" src="~/content/Images/@hotelRooms.RoomIcon" style="width: @hotelRooms.IconWidth; margin-left: @hotelRooms.MarginLeft; margin-right: @hotelRooms.MarginRight; " />
+                            <span style="width: @hotelRooms.SpanWidth; align-items:center; "><b>@hotelRooms.RoomDescription</b> <br /> </span>
+                            <span style="width: @hotelRooms.SpanWidth; align-items:center; color: #0E5D30"> @hotelRooms.ArrivalDateFormated <br /> </span>
+                            <span style="width: @hotelRooms.SpanWidth; align-items:center; "> @hotelRooms.PromptDescriptionInTitleCase </span>
+                        </a>
+                    }
+                }
+            </li>
+        }
+
+
+    </ul>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $(".lnkCreate").on("click", function (e) {
+            e.preventDefault();
+
+            var url = $(this).attr('href');
+
+            var roomID = $(this).attr('roomID');
+            var roomCategoryID = $(this).attr('roomCategoryID');
+
+            if (roomID != undefined && roomCategoryID != undefined) {
+
+                var jsonParameters = { "id": roomID };
+
+                if (roomCategoryID == '@SettingsManager.RoomCategoryRoomService') {
+                    $.ajax({
+                        url: '@Url.Action("GetActiveBill","Home")',
+                        data: JSON.stringify(jsonParameters),
+                        type: 'POST',
+                        contentType: 'application/json;',
+                        dataType: 'json',
+                        success: function (result) {
+                            var mywindow = CreatePopUp((result == 0 ? "Nhận phòng" : "Trả phòng"), (result == 0 ? "530px" : "1020px"), (result == 0 ? "600px" : "640px"), result);
+                            mywindow.center().open();                            
+                            mywindow.refresh(url);                            
+                        }
+                    });
+                }
+
+                else {
+                    var mywindow = CreatePopUp("Phiếu tính tiền", "800px", "800px");
+                    mywindow.center().open();                    
+                    mywindow.refresh(url);                    
+                }
+
+            }
+        });
+
+
+        $(".lnkCreate").bind('contextmenu', function (event) {
+            url = $(this).attr('href');
+            //var roomID = url.split("/")[url.split("/").length - 1];
+            var roomID = $(this).attr('roomID');
+            var billingID = $(this).attr('BillingID');
+            var roomCategoryID = $(this).attr('roomCategoryID');
+
+            var menu = $("#contextmenu").kendoMenu({
+                orientation: "vertical"
+            }).data("kendoMenu");
+
+            $("li[menuseparator='1']").css("display", roomCategoryID == '@SettingsManager.RoomCategoryRoomService' ? "" : "none");
+            $("li[menucategory='RoomStatus']").css("display", roomCategoryID == '@SettingsManager.RoomCategoryRoomService' ? "" : "none");
+
+            $("#contextmenu").val(roomID);
+            if (billingID == 0) {
+                menu.enable("li[menucategory='RoomStatus']", true);
+                menu.enable("li[menucategory='RoomAction']", false);
+            }
+            else {
+                menu.enable("li[menucategory='RoomStatus']", false);
+                menu.enable("li[menucategory='RoomAction']", true);
+            }
+            $("#contextmenu").css({ "top": event.pageY + "px", "left": event.pageX + "px" }).kendoMenu({ orientation: "vertical" }).show();
+
+            event.preventDefault();
+        });
+
+
+        $(document).bind('click', function () {
+            $("#contextmenu").hide();
+        });
+
+    });
+
+</script>

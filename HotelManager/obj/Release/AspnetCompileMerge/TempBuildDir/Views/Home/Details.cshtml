@@ -1,0 +1,57 @@
+﻿@model HotelManager.ViewModels.BillingViewModels
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutPopupWindow.cshtml";
+}
+
+@Html.Partial("_Edit", Model)
+
+<script>
+    $(document).ready(function () {
+
+        //    $("#grid").kendoGrid({
+        //        pageable: true
+        //        , sortable: true
+        //        , selectable: true
+        //        , dataSource: { pageSize: 15 }
+        //    });
+        //});
+
+        $("input").each(function (index, element) {
+            var widgetObject = kendo.widgetInstance($(element), kendo.ui);
+            if (typeof widgetObject != 'undefined')
+                widgetObject.enable(false);
+            document.getElementById("BillingMaster_IsPaidByATMCard").disabled = true;
+            //$("#BillingMaster_IsPaidByATMCard").css("disabled", "disabled");
+        });
+    });
+</script>
+
+<style type="text/css">
+    .edit-controls {
+        display: none;
+    }
+
+    .form-right {
+        margin-top: 23px;
+    }
+
+    .detail-controls {
+        clear: both;
+    }
+
+    .div-main {
+        margin-top: 10px;
+        overflow: auto;
+        max-height: 550px;
+        height: 550px;
+        width: 960px;
+    }
+</style>
+
+<link href="@Url.Content("~/Content/CustomCss/PopupFourColumn.css")" rel="stylesheet" type="text/css" />
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,72 @@
+﻿@using HotelManager.Configuration 
+
+@(Html.Kendo().Scheduler<HotelManager.ViewModels.BookingViewModel>()
+                .Name("scheduler")
+                .Date(DateTime.Today)
+                .StartTime(DateTime.Today.AddHours(23).AddMinutes(59))
+                .Width(940)
+                .Views(views =>
+                {
+                    views.DayView(d => d.DateHeaderTemplate("<span class='k-link k-nav-day'>#=kendo.toString(date, 'ddd " + @SettingsManager.MonthDay + "')#</span>"));
+                    views.WeekView(weekView => weekView.Selected(true).DateHeaderTemplate("<span class='k-link k-nav-day'>#=kendo.toString(date, 'ddd " + @SettingsManager.MonthDay + "')#</span>"));
+                    views.MonthView();
+                    views.AgendaView();
+                })
+                .Editable(edit =>
+                {
+                    edit.TemplateId("schedulerTemplate");
+                })
+                .Events(events =>
+                {
+                    events.Save("schedulerMaster_save");
+                })
+                .Timezone("Etc/UTC")
+                .Group(group => group.Resources("ListHotels", "ListRoomTypes").Orientation(SchedulerGroupOrientation.Vertical))
+                .Resources(resource =>
+                    {
+                        resource.Add(m => m.HotelID)
+                            .Title("Hotel")
+                            .Name("ListHotels")
+                            .DataTextField("Name")
+                            .DataValueField("HotelID")
+                            .DataSource(ds => ds.Read("ListHotel_Read", "ListHotels"));
+                        resource.Add(m => m.RoomTypeID)
+                           .Title("Room Type")
+                           .Name("ListRoomTypes")
+                           .DataTextField("Description")
+                           .DataValueField("RoomTypeID")
+                           .DataSource(ds => ds.Read("ListRoomType_Read", "ListRoomTypes"));
+                        resource.Add(m => m.ChargeTypeID)
+                           .Title("Charge Type")
+                           .Name("ListChargeTypes")
+                           .DataTextField("Description")
+                           .DataValueField("ChargeTypeID")
+                           .DataSource(ds => ds.Read("GetListChargeType", "ListChargeTypes"));
+                        resource.Add(m => m.RoomID)
+                          .Title("Room")
+                          .Name("ListRooms")
+                          .DataTextField("Description")
+                          .DataValueField("RoomID")
+                          .DataSource(ds => ds.Read("GetActiveRoom", "ListRooms", new { hotelID = 0, roomCategoryID = 0, roomID = 0 }));
+                    })
+                .DataSource(d => d
+                        .Model(m =>
+                        {
+                            m.Id(f => f.BookingID);
+                            m.Field(f => f.Title).DefaultValue("No title");
+                            m.Field(f => f.ChargeTypeID).DefaultValue(2);
+                            m.Field(f => f.RoomID).DefaultValue(0);
+                        })
+                        .Read("Grouping_Vertical_Read", "Home")
+                            .Create("Grouping_Vertical_Create", "Home")
+                            .Destroy("Grouping_Vertical_Destroy", "Home")
+                            .Update("Grouping_Vertical_Update", "Home")
+                        )
+                        .Events(e =>
+                        {
+                            e.Save("scheduler_save");
+                            e.Add("scheduler_add");
+                            e.Edit("scheduler_edit");
+                        }).HtmlAttributes(new { @style = "font-size: small" })
+)
+

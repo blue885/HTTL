@@ -1,0 +1,37 @@
+﻿@model HotelManager.ViewModels.BillingViewModels
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutPopupWindow.cshtml";
+}
+
+@Html.Partial("_Edit", Model)
+
+<link href="@Url.Content("~/Content/CustomCss/PopupTable.css")" rel="stylesheet" type="text/css" />
+
+<style type="text/css">
+    .div-main {
+        margin-top: 15px;
+        overflow: auto;
+        max-height: 550px;
+        height: 550px;
+        width: 740px;
+    }
+
+    .detail-controls {
+        display: none;
+    }
+</style>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#traphong").val("Thanh toán");
+        if ($("#BillingID").val() <= 0) {
+            $("#traphong").css("display", "none");
+        }
+    });
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

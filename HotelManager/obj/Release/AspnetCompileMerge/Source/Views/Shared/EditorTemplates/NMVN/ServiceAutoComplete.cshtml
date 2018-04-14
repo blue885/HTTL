@@ -1,0 +1,32 @@
+﻿@using HotelManager.Configuration
+
+@model string
+
+@(Html.Kendo().AutoCompleteFor(m => m)
+        .Name("ListServiceDescription")
+        .DataTextField("Description")
+        .Filter("contains")
+        .MinLength(SettingsManager.AutoCompleteMinLenght)      
+        .Placeholder("Chọn mặt hàng...")
+        .DataSource(source =>
+        {
+            source.Read(read =>
+            {
+                read.Action("SearchListServiceByName", "ListServicesApi").Data("onAdditionalListServiceData");
+            })
+            .ServerFiltering(true);
+        })
+        .Events(e =>
+        {
+            e.Select("ListService_Select");
+        })
+        .Value(Model)
+        .HtmlAttributes(new { @class = "custom-control" })
+)
+
+<script type="text/javascript">
+    $("#ListServiceDescription").focus(function (e) {
+        $("#ListServiceDescriptionTemp").val($("#ListServiceDescription").val());
+    });
+</script>
+

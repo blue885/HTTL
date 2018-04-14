@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0d984c5af84d4f2692af527575444842" Name="Diagram1">
+        <EntityTypeShape EntityType="HotelManagerModel.BillingDetail" Width="1.5" PointX="10.5" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelManagerModel.BillingMaster" Width="1.5" PointX="8.25" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelManagerModel.BookingMaster" Width="1.5" PointX="5.75" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelManagerModel.ListChargeRate" Width="1.5" PointX="3" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelManagerModel.ListChargeType" Width="1.5" PointX="0.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelManagerModel.ListContextMenu" Width="1.5" PointX="10.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelManagerModel.ListHotel" Width="1.5" PointX="3.75" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelManagerModel.ListLocation" Width="1.5" PointX="1.5" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelManagerModel.ListRoom" Width="1.5" PointX="6" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelManagerModel.ListRoomStatuses" Width="1.875" PointX="3.75" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelManagerModel.ListRoomType" Width="1.5" PointX="0.75" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="HotelManagerModel.ListService" Width="1.5" PointX="8.25" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="HotelManagerModel.FK_BillingDetail_BillingMaster" ManuallyRouted="false" />
+        <AssociationConnector Association="HotelManagerModel.FK_BillingDetail_ListService" ManuallyRouted="false" />
+        <AssociationConnector Association="HotelManagerModel.FK_BillingMaster_ListChargeType" ManuallyRouted="false" />
+        <AssociationConnector Association="HotelManagerModel.FK_BillingMaster_ListRoom" ManuallyRouted="false" />
+        <AssociationConnector Association="HotelManagerModel.FK_ListChargeRate_ListChargeType" ManuallyRouted="false" />
+        <AssociationConnector Association="HotelManagerModel.FK_ListChargeRate_ListRoomType" ManuallyRouted="false" />
+        <AssociationConnector Association="HotelManagerModel.FK_ListHotel_ListLocation" ManuallyRouted="false" />
+        <AssociationConnector Association="HotelManagerModel.FK_ListRoom_ListHotel" ManuallyRouted="false" />
+        <AssociationConnector Association="HotelManagerModel.FK_ListRoom_ListRoomStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="HotelManagerModel.FK_ListRoom_ListRoomType" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="HotelManagerModel.PurchaseInvoiceDetail" Width="1.5" PointX="12.625" PointY="0.875" />
+        <EntityTypeShape EntityType="HotelManagerModel.PurchaseInvoice" Width="1.5" PointX="13.375" PointY="5.25" />
+        <AssociationConnector Association="HotelManagerModel.FK_PurchaseInvoiceDetails_ListService" />
+        <AssociationConnector Association="HotelManagerModel.FK_PurchaseInvoiceDetails_PurchaseInvoices" />
+        <EntityTypeShape EntityType="HotelManagerModel.AspNetUserHotel" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="HotelManagerModel.ListRoomCategory" Width="1.5" PointX="0.75" PointY="13.75" />
+        <AssociationConnector Association="HotelManagerModel.FK_ListRoomType_ListRoomCategory" />
+        <AssociationConnector Association="HotelManagerModel.FK_BookingMaster_ListRoomType" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

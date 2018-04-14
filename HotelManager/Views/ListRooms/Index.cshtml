@@ -1,0 +1,189 @@
+﻿@using HotelManager.Configuration
+@model IEnumerable<MVCModel.Models.ListRoom>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div id="popupWindow" style="position: absolute"></div>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+    <div>
+        @(Html.Kendo().Grid<MVCDTO.CommonTasks.ListRoomPrimitiveDTO>()
+            .Name("listRoomGrid")
+            .Columns(columns =>
+            {
+                columns.Bound(p => p.RoomID).Title("RoomID").Hidden();
+                columns.Bound(p => p.Description).Title("Description").Width(200);
+                columns.Bound(p => p.FloorLevel).Title("FloorLevel").Width(200);
+                columns.Bound(p => p.ListHotelDescription).Title("HotelDescription").Width(200);
+                columns.Bound(p => p.ListRoomStatusDescription).Title("RoomStatusDescription").Width(200);
+                columns.Bound(p => p.ListRoomTypeDescription).Title("RoomTypeDescription").Width(200);                
+                columns.Bound(p => p.Remarks).Title("Ghi chú").Filterable(false).Width(150);
+                columns.Template(model => null)
+                    .Width(200)
+                   .ClientTemplate("<a class='k-button' style='padding-left:5px; min-width:28px; width:28px' href='" + Url.RouteUrl("Default", new { controller = "ListRooms", action = "Edit" }) + "/#= RoomID #'><span class='k-icon k-edit'></span></a>  <a class='k-button' style='padding-left:0px; padding-right:0px; min-width:28px; width:28px' href='javascript:void(0)'><text style='padding-left:5px; padding-right:5px' onclick='delete_click(#= RoomID #)'><span class='k-icon k-delete'></span></text></a>");
+            })
+            .ToolBar(toolbar => toolbar.Custom().Action("Create", "ListRooms"))
+            .Pageable()
+            .Groupable()
+            .Filterable()
+            .Selectable()
+            .Sortable()
+            .Editable(e => e.Enabled(false))
+            .Events(e =>
+            {
+                e.DataBound("listRoomGrid_DataBound");
+
+            })
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .Read(read => read.Action("GetListRooms", "ListRoomsApi"))
+                //.Update(update => update.Action("UpdateListRooms", "ListRoomsApi"))
+                //.Destroy(update => update.Action("DeleteListRooms", "ListRoomsApi"))
+                //.Events(events => events.Error("onError"))
+                .PageSize(20)
+                .Model(model =>
+                {
+                    model.Id(x => x.RoomID);
+                    model.Field(m => m.RoomID).DefaultValue(0);
+                })
+            .ServerOperation(false)
+                ).HtmlAttributes(new { @class = "grid-class" }))
+    </div>
+
+}
+
+
+
+<script type="text/javascript">
+    var index = 0;
+    var load = true;
+
+    $(document).ready(function () {
+        var grid = $("#listRoomGrid").data("kendoGrid");
+        grid.dataSource.fetch(function () {
+            grid.dataSource.page(index);
+        });
+    });
+
+    listRoomGrid_DataBound = function (e) {
+        var grid = this;
+        $.each(grid.dataSource.data(), function (idx, elem) {
+            if ('@ViewBag.SelectedID' == -1) {
+                return false;
+            }
+            if (elem.RoomID == '@ViewBag.SelectedID') {
+                $('[data-uid=' + elem.uid + ']').addClass('k-state-selected');
+                index = Math.floor(idx / grid.dataSource.pageSize() + 1);
+                return false;
+            }
+        });
+    }
+
+    function delete_click(listRoomID) {
+
+        var r = confirm("@SettingsManager.DeleteAlert");
+        if (r == true) {
+            var datapost = { 'id': listRoomID }
+            $.ajax({
+                url: '@Url.Action("Delete","ListRooms")',
+                data: JSON.stringify(datapost),
+                type: 'POST',
+                contentType: 'application/json;',
+                dataType: 'json',
+                success: function (result) {
+                    if (result.Success == 0) {
+                        alert(result.ex);
+                    }
+                    else {
+                        $('#listRoomGrid').data('kendoGrid').dataSource.read();
+                        $('#listRoomGrid').data('kendoGrid').refresh();
+                    }
+                }
+            });
+        }
+    }
+
+</script>
+
+<style type="text/css">
+    #listRoomGrid {
+        width: 1000px;
+    }
+</style>
+
+@*<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FloorLevel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NoBed)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NoPerson)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Remarks)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ListHotel.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ListRoomStatu.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ListRoomType.Description)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FloorLevel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NoBed)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NoPerson)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Remarks)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ListHotel.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ListRoomStatu.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ListRoomType.Description)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.RoomID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.RoomID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.RoomID })
+        </td>
+    </tr>
+}
+
+</table>*@

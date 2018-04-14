@@ -1,0 +1,117 @@
+﻿@using HotelManager.Configuration
+@model IEnumerable<MVCModel.Models.ListChargeType>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div id="popupWindow" style="position: absolute"></div>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+    <div>
+        @(Html.Kendo().Grid<MVCDTO.CommonTasks.ListChargeTypePrimitiveDTO>()
+            .Name("listChargeTypeGrid")
+            .Columns(columns =>
+            {
+                columns.Bound(p => p.ChargeTypeID).Title("ChargeTypeID").Hidden();                
+                columns.Bound(p => p.Description).Title("Description").Width(200);
+                columns.Bound(p => p.GraceMinutes).Title("GraceMinutes").Format("{0:n0}").Filterable(false).Width(150).HtmlAttributes(new { @class = "grid-number-column" }).Hidden();
+                columns.Bound(p => p.HoursPerBlock).Title("HoursPerBlock").Format("{0:n0}").Filterable(false).Width(150).HtmlAttributes(new { @class = "grid-number-column" }).Hidden();                
+                columns.Bound(p => p.Remarks).Title("Ghi chú").Filterable(false).Width(150);
+                columns.Template(model => null)
+                    .Width(200)
+                   .ClientTemplate("<a class='k-button' style='padding-left:5px; min-width:28px; width:28px' href='" + Url.RouteUrl("Default", new { controller = "ListChargeTypes", action = "Edit" }) + "/#= ChargeTypeID #'><span class='k-icon k-edit'></span></a>  <a class='k-button' style='padding-left:0px; padding-right:0px; min-width:28px; width:28px' href='javascript:void(0)'><text style='padding-left:5px; padding-right:5px' onclick='delete_click(#= ChargeTypeID #)'><span class='k-icon k-delete'></span></text></a>");
+            })
+            .ToolBar(toolbar => toolbar.Custom().Action("Create", "ListChargeTypes"))
+            .Pageable()
+            .Groupable()
+            .Filterable()
+            .Selectable()
+            .Sortable()
+            .Editable(e => e.Enabled(false))
+            .Events(e =>
+            {
+                e.DataBound("listChargeTypeGrid_DataBound");
+
+            })
+            .DataSource(dataSource => dataSource
+                .Ajax()
+                .Read(read => read.Action("GetListChargeTypes", "ListChargeTypesApi"))
+                //.Update(update => update.Action("UpdateListChargeTypes", "ListChargeTypesApi"))
+                //.Destroy(update => update.Action("DeleteListChargeTypes", "ListChargeTypesApi"))
+                //.Events(events => events.Error("onError"))
+                .PageSize(20)
+                .Model(model =>
+                {
+                    model.Id(x => x.ChargeTypeID);
+                    model.Field(m => m.ChargeTypeID).DefaultValue(0);
+                })
+            .ServerOperation(false)
+                ).HtmlAttributes(new { @class = "grid-class" }))
+    </div>
+
+}
+
+
+
+<script type="text/javascript">
+    var index = 0;
+    var load = true;
+
+    $(document).ready(function () {
+        var grid = $("#listChargeTypeGrid").data("kendoGrid");
+        grid.dataSource.fetch(function () {
+            grid.dataSource.page(index);
+        });
+    });
+
+    listChargeTypeGrid_DataBound = function (e) {
+        var grid = this;
+        $.each(grid.dataSource.data(), function (idx, elem) {
+            if ('@ViewBag.SelectedID' == -1) {
+                return false;
+            }
+            if (elem.ChargeTypeID == '@ViewBag.SelectedID') {
+                $('[data-uid=' + elem.uid + ']').addClass('k-state-selected');
+                index = Math.floor(idx / grid.dataSource.pageSize() + 1);
+                return false;
+            }
+        });
+    }
+
+    function delete_click(listChargeTypeID) {
+
+        var r = confirm("@SettingsManager.DeleteAlert");
+        if (r == true) {
+            var datapost = { 'id': listChargeTypeID }
+            $.ajax({
+                url: '@Url.Action("Delete","ListChargeTypes")',
+                data: JSON.stringify(datapost),
+                type: 'POST',
+                contentType: 'application/json;',
+                dataType: 'json',
+                success: function (result) {
+                    if (result.Success == 0) {
+                        alert(result.ex);
+                    }
+                    else {
+                        $('#listChargeTypeGrid').data('kendoGrid').dataSource.read();
+                        $('#listChargeTypeGrid').data('kendoGrid').refresh();
+                    }
+                }
+            });
+        }
+    }
+
+</script>
+
+<style type="text/css">
+    #listChargeTypeGrid {
+        width: 1000px;
+    }
+</style>

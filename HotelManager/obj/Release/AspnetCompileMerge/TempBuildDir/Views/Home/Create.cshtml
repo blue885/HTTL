@@ -1,0 +1,293 @@
+﻿@model MVCModel.Models.BillingMaster
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutPopupWindow.cshtml";
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div id="form-main" class="div-main">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.BillingID)
+        @Html.HiddenFor(model => model.BillingReference)
+        @Html.HiddenFor(model => model.BillingDate)
+        @Html.HiddenFor(model => model.Description)
+        @Html.HiddenFor(model => model.ChargeDuration)
+        @Html.HiddenFor(model => model.ChargeAmount)
+        @Html.HiddenFor(model => model.ServiceAmount)
+        @Html.HiddenFor(model => model.OtherAmount)
+        @Html.HiddenFor(model => model.DiscountPercent)
+        @Html.HiddenFor(model => model.DiscountAmount)
+        @Html.HiddenFor(model => model.TotalAmount)
+        @Html.HiddenFor(model => model.IsPaidByATMCard)
+        @Html.HiddenFor(model => model.IsCheckOut)
+        @Html.HiddenFor(model => model.BookingID)
+
+
+        <div class="control-group">
+            <div class="col-custom">
+                <label class="label-group">
+                    @Html.LabelFor(model => model.RoomID, htmlAttributes: new { @class = "control-label-custom" })
+                    @(Html.Kendo().ComboBoxFor(model => model.RoomID)
+                            .Name("RoomID")
+                            .DataTextField("Description")
+                            .DataValueField("RoomID")
+                            .Filter("contains")
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("GetActiveRoom", "ListRooms", new { hotelID = ViewBag.hotelID, roomCategoryID = ViewBag.roomCategoryID, roomID = 0 });
+                                })
+                                    .ServerFiltering(false);
+                            }).HtmlAttributes(new { @class = "form-custom" })
+                    )
+                    @Html.ValidationMessageFor(model => model.RoomID, "", new { @class = "text-danger" })
+                </label>
+            </div>
+
+            <div class="col-custom">
+                <label class="label-group">
+                    @Html.LabelFor(model => model.ArrivalDate, htmlAttributes: new { @class = "control-label-custom" })
+                    @Html.Kendo().DateTimePickerFor(model => model.ArrivalDate).Enable(false).HtmlAttributes(new { @class = "form-custom" })
+                    <label>
+                        @Html.ValidationMessageFor(model => model.ArrivalDate, "", new { @class = "text-danger" })
+                    </label>
+                </label>
+            </div>
+
+            <div class="col-custom">
+                <label class="label-group">
+                    @Html.LabelFor(model => model.DepartureDate, htmlAttributes: new { @class = "control-label-custom" })
+                    @Html.Kendo().DateTimePickerFor(model => model.DepartureDate).HtmlAttributes(new { @class = "form-custom" })
+                    <label>
+                        @Html.ValidationMessageFor(model => model.DepartureDate, "", new { @class = "text-danger" })
+                    </label>
+                </label>
+            </div>
+
+            <div class="col-custom">
+                <label class="label-group">
+                    @Html.LabelFor(model => model.ChargeTypeID, htmlAttributes: new { @class = "control-label-custom" })
+                    @(Html.Kendo().ComboBoxFor(model => model.ChargeTypeID)
+                                    .Name("ChargeTypeID")
+                                    .DataTextField("Description")
+                                    .DataValueField("ChargeTypeID")
+                                    .Filter("contains")
+        //.Events(events => events.Select("ChangeTypeID_Select"))
+                                    .DataSource(source =>
+                                    {
+                                        source.Read(read =>
+                                        {
+                                            read.Action("GetListChargeType", "ListChargeTypes");
+                                        })
+                                            .ServerFiltering(false);
+                                    }).HtmlAttributes(new { @class = "form-custom" })
+
+                    )
+                    <label>
+                        @Html.ValidationMessageFor(model => model.ChargeTypeID, "", new { @class = "text-danger" })
+                    </label>
+                </label>
+            </div>
+        </div>
+
+
+        <div class="control-group">
+
+            <div class="col-custom">
+                <label class="label-group">
+                    @Html.LabelFor(model => model.CustomerIdentityNo, htmlAttributes: new { @class = "control-label-custom" })
+                    @Html.Kendo().MaskedTextBoxFor(model => model.CustomerIdentityNo).HtmlAttributes(new { @class = "form-custom" })
+                    <label>
+                        @Html.ValidationMessageFor(model => model.CustomerIdentityNo, "", new { @class = "text-danger" })
+                    </label>
+                </label>
+            </div>
+
+
+            <div class="col-custom">
+                <label class="label-group">
+                    @Html.LabelFor(model => model.CustomerName, htmlAttributes: new { @class = "control-label-custom" })
+                    @Html.Kendo().MaskedTextBoxFor(model => model.CustomerName).HtmlAttributes(new { @class = "form-custom" })
+                    <label>
+                        @Html.ValidationMessageFor(model => model.CustomerName)
+                    </label>
+                </label>
+            </div>
+
+
+            <div class="col-custom">
+                <label class="label-group">
+                    @Html.LabelFor(model => model.CustomerAddress, htmlAttributes: new { @class = "control-label-custom" })
+                    @Html.Kendo().MaskedTextBoxFor(model => model.CustomerAddress).HtmlAttributes(new { @class = "form-custom" })
+                    @Html.ValidationMessageFor(model => model.CustomerAddress, "", new { @class = "text-danger" })
+                </label>
+            </div>
+
+            <div class="col-custom">
+                <label class="label-group">
+                    @Html.LabelFor(model => model.CustomerTelephone, htmlAttributes: new { @class = "control-label-custom" })
+                    @Html.Kendo().MaskedTextBoxFor(model => model.CustomerTelephone).HtmlAttributes(new { @class = "form-custom" })
+                    @Html.ValidationMessageFor(model => model.CustomerTelephone, "", new { @class = "text-danger" })
+                </label>
+            </div>
+
+            <div class="col-custom">
+                <label class="label-group">
+                    @Html.LabelFor(model => model.CustomerNationality, htmlAttributes: new { @class = "control-label-custom" })
+                    @Html.Kendo().MaskedTextBoxFor(model => model.CustomerNationality).HtmlAttributes(new { @class = "form-custom" })
+                    @Html.ValidationMessageFor(model => model.CustomerNationality, "", new { @class = "text-danger" })
+                </label>
+            </div>
+        </div>
+
+
+        <div class="control-group">
+            <div class="col-custom">
+                <label class="label-group">
+                    @Html.LabelFor(model => model.AdvancePayment, htmlAttributes: new { @class = "control-label-custom" })
+                    @Html.Kendo().NumericTextBoxFor(model => model.AdvancePayment).Min(0).Decimals(0).Format("#,##0,,").Spinners(false).HtmlAttributes(new { @class = "form-custom" })
+                    @Html.ValidationMessageFor(model => model.AdvancePayment, "", new { @class = "text-danger" })
+                </label>
+            </div>
+
+            <div class="col-custom">
+                <label class="label-group">
+                    @Html.LabelFor(model => model.Remarks, htmlAttributes: new { @class = "control-label-custom" })
+                    @Html.Kendo().MaskedTextBoxFor(model => model.Remarks).HtmlAttributes(new { @class = "form-custom" })
+                    @Html.ValidationMessageFor(model => model.Remarks, "", new { @class = "text-danger" })
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="edit-buttons">
+        <hr class="hr-in-edit-button" />
+        <input id="luu" type="button" value="Nhận phòng" class="k-button custom-button" onclick="Billing_save()" />
+        @*<input id="luu1" type="submit" value="Nhận phòng" class="k-button custom-button"/>*@
+    </div>
+}
+
+<script>
+    function Billing_save() {
+
+        ////$("#form-main").valid();
+        //if ($("#form-main").valid()) {
+        //    $form.ajaxSubmit({
+        //        beforeSerialize: beforeSerializeForm,
+        //        success: function (response) {
+        //            if ($(response).filter('#IsValid:hidden').val() == "True") {
+        //                if ($.salesManager.itemsGrid)
+        //                    $.salesManager.itemsGrid.ajaxRequest();
+        //                $form.parents('.t-window').data('tWindow').close();
+        //            }
+        //            else {
+        //                $content.html(response);
+        //                $.validator.unobtrusive.parse($content);
+        //            }
+        //        }
+        //    });
+        //}
+        //$(".form-custom").valid();
+        var isvalid = false;
+
+        if (!$("#CustomerIdentityNo").valid()) {
+            isvalid = true;
+        }
+
+        if (!$("#ArrivalDate").valid()) {
+            isvalid = true;
+        }
+
+        if (!$("#DepartureDate").valid()) {
+            isvalid = true;
+        }
+
+        if (isvalid == true)
+            return false;
+
+        // Step 1: Read View Data and Create JSON Object
+
+        // Creating BillingMaster Json Object
+        var billingmaster = { "BillingID": "0", "BillingDate": "", "BillingReference": "", "RoomID": "", "ArrivalDate": "", "DepartureDate": "", "CustomerName": "", "CustomerIdentityNo": "", "CustomerSex": " ", "CustomerAddress": " ", "CustomerTelephone": " ", "CustomerNationality": " ", "ChargeTypeID": "1", "ChargeDuration": "0", "ChargeAmount": "0", "ServiceAmount": "0", "OtherAmount": "0", "DiscountPercent": "0", "DiscountAmount": "0", "TotalAmount": "0", "AdvancePayment": "0", "IsPaidByATMCard": "", "IsCheckOut": "", "Description": "", "Remarks": "", "BookingID": "", "BillingDetails": [] };
+
+        //// Set Billing Master Value
+        billingmaster.BillingDate = $('#BillingDate').val();
+        billingmaster.BillingReference = $("#BillingReference").val();
+        billingmaster.RoomID = $("#RoomID").val();
+        billingmaster.ArrivalDate = $('#ArrivalDate').data('kendoDateTimePicker').value();
+        billingmaster.DepartureDate = $('#DepartureDate').data('kendoDateTimePicker').value();
+        billingmaster.ChargeTypeID = $("#ChargeTypeID").val();
+        billingmaster.CustomerName = $("#CustomerName").val();
+        billingmaster.CustomerIdentityNo = $("#CustomerIdentityNo").val();
+        billingmaster.CustomerAddress = $("#CustomerAddress").val();
+        billingmaster.CustomerTelephone = $("#CustomerTelephone").val();
+        billingmaster.CustomerNationality = $("#CustomerNationality").val();
+        billingmaster.Remarks = $("#Remarks").val();
+
+        billingmaster.ChargeDuration = $("#ChargeDuration").val();
+        billingmaster.ChargeAmount = $("#ChargeAmount").val();
+        billingmaster.ServiceAmount = $("#ServiceAmount").val();
+        billingmaster.OtherAmount = $("#OtherAmount").val();
+        billingmaster.DiscountPercent = $("#DiscountPercent").val();
+        billingmaster.DiscountAmount = $("#DiscountAmount").val();
+        billingmaster.TotalAmount = $("#TotalAmount").val();
+        billingmaster.AdvancePayment = $("#AdvancePayment").val();
+        billingmaster.IsPaidByATMCard = $("#IsPaidByATMCard").val();
+        billingmaster.IsCheckOut = $("#IsCheckOut").val();
+        billingmaster.Description = $("#Description").val();
+        billingmaster.BookingID = $("#BookingID").val();
+
+
+        // Step 1: Ends Here
+
+
+        // Set 2: Ajax Post
+        // Here i have used ajax post for saving/updating information
+        $.ajax({
+            url: '@Url.Action("Create","Home")',
+            data: JSON.stringify(billingmaster),
+            type: 'POST',
+            contentType: 'application/json;',
+            dataType: 'json',
+            success: function (result) {
+
+                if (result.Success == "1") {
+
+                    window.parent.$("#window").data("kendoWindow").close();
+                    window.parent.$('#roomlist').load('@Url.Action("GetRoomList", "Home")');
+                    //window.parent.location.href = '@Url.Action("Index","Home")';
+                }
+                else {
+                    alert(result.ex);
+                }
+            }
+        });
+    }
+</script>
+
+<link href="@Url.Content("~/Content/CustomCss/PopupOneColumn.css")" rel="stylesheet" type="text/css" />
+
+<style type="text/css">
+    .div-main {
+        overflow: auto;
+        width: 490px;
+        max-height: 525px;
+        height: 525px;
+    }
+
+    .text-danger {
+        width: 400px;
+        float: right;
+        right: 5px;
+    }
+</style>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/customannotation.js")
+}

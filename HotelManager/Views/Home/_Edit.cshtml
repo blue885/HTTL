@@ -1,0 +1,630 @@
+﻿@model HotelManager.ViewModels.BillingViewModels
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="div-main">
+        <div id="popupWindow1" style="position:absolute; top: 30px; left: 220px"></div>
+        <div class="form-left">
+            <div>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.BillingMaster.BillingID, new { id = "BillingID" })
+                @Html.HiddenFor(model => model.BillingMaster.BillingDate)
+                @Html.HiddenFor(model => model.BillingMaster.BillingReference)
+                @Html.HiddenFor(model => model.BillingMaster.CustomerAddress)
+                @Html.HiddenFor(model => model.BillingMaster.CustomerTelephone)
+                @Html.HiddenFor(model => model.BillingMaster.CustomerNationality)
+                @Html.HiddenFor(model => model.BillingMaster.Description)
+                @Html.HiddenFor(model => model.BillingMaster.IsCheckOut)
+                @Html.HiddenFor(model => model.BillingMaster.BookingID)
+            </div>
+            <div class="control-group">
+                <div>
+                    @Html.LabelFor(model => model.BillingMaster.RoomID, new { @class = "label-left" })
+                </div>
+                <div class="left-group">
+                    @(Html.Kendo().ComboBoxFor(model => model.BillingMaster.RoomID)
+                            .Name("RoomID")
+                            .DataTextField("Description")
+                            .DataValueField("RoomID")
+                            .Filter("contains")
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("GetActiveRoom", "ListRooms", new { hotelID = Model.HotelID, roomCategoryID = Model.RoomCategoryID, roomID = Model.BillingMaster.RoomID });
+                                })
+                                .ServerFiltering(false);
+                            }).Enable(false).HtmlAttributes(new { @class = "form-custom" })
+                    )
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div>
+                    @Html.LabelFor(model => model.BillingMaster.CustomerIdentityNo, new { @class = "label-left" })
+                </div>
+                <div class="left-group">
+                    @Html.Kendo().MaskedTextBoxFor(model => model.BillingMaster.CustomerIdentityNo).HtmlAttributes(new { @class = "form-custom" })
+                </div>
+                <div class="left-group">
+                    @Html.ValidationMessageFor(model => model.BillingMaster.CustomerIdentityNo, "", new { @class = "text-danger" })
+                </div>
+
+                <div>
+                    @Html.LabelFor(model => model.BillingMaster.CustomerName, new { @class = "label-left" })
+                </div>
+                <div class="left-group">
+                    @Html.Kendo().MaskedTextBoxFor(model => model.BillingMaster.CustomerName).HtmlAttributes(new { @class = "form-custom" })
+                </div>
+                <div class="left-group">
+                    @Html.ValidationMessageFor(model => model.BillingMaster.CustomerName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div>
+                    @Html.LabelFor(model => model.BillingMaster.ArrivalDate, new { @class = "label-left" })
+                </div>
+                <div class="left-group">
+                    @Html.Kendo().MaskedTextBoxFor(model => model.BillingMaster.ArrivalDate).Enable(false).HtmlAttributes(new { @class = "form-custom" })
+                </div>
+
+                <div>
+                    @Html.LabelFor(model => model.BillingMaster.DepartureDate, new { @class = "label-left" })
+                </div>
+                <div class="left-group">
+                    @Html.Kendo().MaskedTextBoxFor(model => model.BillingMaster.DepartureDate).Enable(false).HtmlAttributes(new { @class = "form-custom" })
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div>
+                    @Html.LabelFor(model => model.BillingMaster.ChargeTypeID, new { @class = "label-left" })
+                </div>
+                <div class="left-group">
+                    @(Html.Kendo().ComboBoxFor(model => model.BillingMaster.ChargeTypeID)
+                            .Name("ChargeTypeID")
+                            .DataTextField("Description")
+                            .DataValueField("ChargeTypeID")
+                            .Filter("contains")
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("GetListChargeType", "ListChargeTypes");
+                                })
+                                .ServerFiltering(false);
+                            })
+                            .Events(events => events.Change("ChargeTypeID_Change"))
+                            .HtmlAttributes(new { @class = "form-custom" })
+                    )
+
+                    @Html.ValidationMessageFor(model => model.BillingMaster.ChargeTypeID, "", new { @class = "text-danger" })
+                </div>
+                <div>
+                    @Html.LabelFor(model => model.BillingMaster.ChargeDuration, new { @class = "label-left" })
+                </div>
+                <div class="left-group">
+                    @Html.Kendo().NumericTextBoxFor(model => model.BillingMaster.ChargeDuration).Decimals(0).Format("#,##0,,").Spinners(false).HtmlAttributes(new { @class = "form-custom" }).Enable(false)
+                </div>
+                <div>
+                    @Html.LabelFor(model => model.BillingMaster.ChargeAmount, new { @class = "label-left" })
+                </div>
+                <div class="left-group">
+                    @Html.Kendo().NumericTextBoxFor(model => model.BillingMaster.ChargeAmount).Decimals(0).Format("#,##0,,").Spinners(false).HtmlAttributes(new { @class = "form-custom" }).Enable(false)
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div>
+                    @Html.LabelFor(model => model.BillingMaster.Remarks, new { @class = "label-left" })
+                </div>
+                <div class="left-group">
+                    @Html.Kendo().MaskedTextBoxFor(model => model.BillingMaster.Remarks).HtmlAttributes(new { @class = "form-custom" })
+                </div>
+                <div class="left-group">
+                    @Html.ValidationMessageFor(model => model.BillingMaster.Remarks, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="form-right">
+            <div class="edit-controls" style="margin-bottom: 10px; margin-left: -5px;">
+                <table>
+                    <colgroup>
+                        <col style="width:90px" />
+                        <col style="width:60px" />
+                        <col style="width:30px" />
+                        <col style="width:90px" />
+                        <col style="width:50px" />
+                    </colgroup>
+                    <tr>
+                        <td>
+                            @Html.Label("DV/ hàng hóa")
+                        </td>
+                        <td>
+                            @Html.Label("Số lượng")
+                        </td>
+                        <td>
+                            @Html.Label("")
+                        </td>
+                        <td>
+                            @Html.Label("Đơn giá")
+                        </td>
+                        <td>
+                            @Html.Label("Thành tiền")
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @(Html.Kendo().ComboBox()
+                            .Name("ServiceID")
+                            .DataTextField("Description")
+                            .DataValueField("ServiceID")
+                            .Filter("contains")
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("GetListService", "ListServices");
+                                })
+                                    .ServerFiltering(false);
+                            })
+                            .Events(events => events.Change("ServiceID_Change")).HtmlAttributes(new { @class = "form-name" })
+                            )
+                        </td>
+                        <td>
+                            @Html.Kendo().NumericTextBox().Name("Quantity").Decimals(0).Min(0).Decimals(0).Format("#,##0,,").Value(1).Events(events => events.Spin("Quantity_Change").Change("Quantity_Change")).HtmlAttributes(new { @class = "form-quantity" })
+                        </td>
+                        <td>
+                            @Html.Kendo().MaskedTextBox().Name("UnitForSales").Enable(false).HtmlAttributes(new { @class = "form-unit" })
+                        </td>
+                        <td>
+                            @Html.Kendo().NumericTextBox().Name("UnitPrice").Decimals(0).Min(0).Decimals(0).Format("#,##0,,").Value(0).Spinners(false).Enable(false).Events(events => events.Spin("Quantity_Change").Change("Quantity_Change")).HtmlAttributes(new { @class = "form-numeric" })
+                        </td>
+                        <td>
+                            @Html.Kendo().NumericTextBox().Name("Amount").Decimals(0).Min(0).Decimals(0).Format("#,##0,,").Value(0).Spinners(false).Enable(false).HtmlAttributes(new { @class = "form-numeric" })
+                        </td>
+                        <td>
+                            <input type="button" value="Thêm" class="k-button edit-controls" onclick="InsertNewRow()" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div style="margin-bottom:5px">
+                <table id="grid" style="margin-right:20px">
+                    <colgroup>
+                        <col style="width:160px" />
+                        <col style="width:70px" />
+                        <col style="width:80px" />
+                        <col style="width:140px" />
+                        <col style="width:140px" />
+                        <col style="width:80px" />
+                        <col style="width:1px; display: none" />
+                    </colgroup>
+                    <tr>
+                        <th>
+                            ServiceName
+                        </th>
+                        <th>
+                            Unit
+                        </th>
+                        <th>
+                            Quantity
+                        </th>
+                        <th>
+                            UnitPrice
+                        </th>
+                        <th>
+                            Amount
+                        </th>
+                        <th>
+                            Action
+                        </th>
+                        <th>
+                            ServiceID
+                        </th>
+                    </tr>
+
+
+                    @foreach (var items in Model.BillingDetailFulls)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => items.ServiceName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => items.UnitForSales)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => items.Quantity)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => items.UnitPrice)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => items.Amount)
+                            </td>
+                            <td>
+                                <input type="button" value="Xóa" class="k-button edit-controls" onclick="RemoveSelectedRow()" />
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => items.ServiceID)
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+            <div></div>
+
+            <div class="div-sum">
+                <div class="control-group2">
+                    <label class="label-custom1">
+                        @Html.LabelFor(model => model.BillingMaster.ServiceAmount, htmlAttributes: new { @class = "label-custom2" })
+                        @Html.Kendo().NumericTextBoxFor(model => model.BillingMaster.ServiceAmount).Min(0).Decimals(0).Format("#,##0,,").Spinners(false).Events(events => events.Change("DiscountPercent_Change")).HtmlAttributes(new { @class = "form-custom" }).Enable(false)
+                    </label>
+                </div>
+
+                <div class="control-group2">
+                    <label class="label-custom1">
+                        @Html.LabelFor(model => model.BillingMaster.OtherAmount, htmlAttributes: new { @class = "label-custom2" })
+                        @Html.Kendo().NumericTextBoxFor(model => model.BillingMaster.OtherAmount).Spinners(false).Decimals(0).Format("#,##0,,").Events(events => events.Change("DiscountPercent_Change")).HtmlAttributes(new { @class = "form-custom" })
+                    </label>
+                </div>
+
+                <div class="control-group2">
+                    <label class="label-custom1">
+                        @Html.LabelFor(model => model.BillingMaster.DiscountPercent, htmlAttributes: new { @class = "label-custom2" })
+                        @Html.Kendo().NumericTextBoxFor(model => model.BillingMaster.DiscountPercent).Events(events => events.Change("DiscountPercent_Change").Spin("DiscountPercent_Change")).Min(0).HtmlAttributes(new { @class = "form-custom" })
+                    </label>
+                </div>
+
+                <div class="control-group2">
+                    <label class="label-custom1">
+                        @Html.LabelFor(model => model.BillingMaster.DiscountAmount, htmlAttributes: new { @class = "label-custom2" })
+                        @Html.Kendo().NumericTextBoxFor(model => model.BillingMaster.DiscountAmount).Events(events => events.Change("DiscountAmount_Change")).Min(0).Decimals(0).Format("#,##0,,").Spinners(false).HtmlAttributes(new { @class = "form-custom" })
+                    </label>
+                </div>
+
+                <div class="control-group2">
+                    <label class="label-custom1">
+                        @Html.LabelFor(model => model.BillingMaster.TotalAmount, htmlAttributes: new { @class = "label-custom2" })
+                        @Html.Kendo().NumericTextBoxFor(model => model.BillingMaster.TotalAmount).Min(0).Decimals(0).Format("#,##0,,").Spinners(false).HtmlAttributes(new { @class = "form-custom" }).Enable(false)
+                    </label>
+                </div>
+
+                <div class="div-sum-hotel">
+                    <div class="control-group2">
+                        <label class="label-custom1">
+                            @Html.LabelFor(model => model.BillingMaster.AdvancePayment, htmlAttributes: new { @class = "label-custom2" })
+                            @Html.Kendo().NumericTextBoxFor(model => model.BillingMaster.AdvancePayment).Min(0).Decimals(0).Format("#,##0,,").Spinners(false).Events(events => events.Change("DiscountPercent_Change")).HtmlAttributes(new { @class = "form-custom" })
+                        </label>
+                    </div>
+
+                    <div class="control-group2">
+                        <label class="label-custom1">
+                            <label class="label-custom2">
+                                Tiền còn phải thanh toán
+                            </label>
+                            @Html.Kendo().NumericTextBox().Name("TotalAmountDue").Min(0).Spinners(false).Value(0).Decimals(0).Format("#,##0,,").HtmlAttributes(new { @class = "form-custom" }).Enable(false)
+                        </label>
+                    </div>
+
+                    <div style="margin-left: 420px">
+                        <div class="checkbox" style="width:200px; margin-left: 30px;">
+                            @Html.LabelFor(model => model.BillingMaster.IsPaidByATMCard, htmlAttributes: new { @class = "label-custom2" })
+                            @Html.EditorFor(model => model.BillingMaster.IsPaidByATMCard)
+                            @Html.ValidationMessageFor(model => model.BillingMaster.IsPaidByATMCard, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="edit-buttons edit-controls">
+        <hr class="hr-in-edit-button" />
+        <input id="traphong" type="button" value="Trả phòng" class="k-button edit-buttons-in" onclick="Billing_save(2)" />
+        <input id="luu" type="button" value="Lưu dữ liệu" class="k-button edit-buttons-in" onclick="Billing_save(1)" />
+        <input type="button" value="  In  " class="k-button edit-buttons-in" onclick="Billing_save(3)" />
+    </div>
+    <div class="edit-buttons detail-controls">
+        <hr class="hr-in-edit-button" />
+        <input type="button" value="OK" class="k-button edit-buttons-in" onclick='window.parent.$("#window").data("kendoWindow").close();' />
+        <input type="button" value="  In  " class="k-button edit-buttons-in" onclick="printBillingReceipt()" />
+    </div>
+}
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#grid").kendoGrid({
+            pageable: true
+            , sortable: true
+            , selectable: true
+            , dataSource: { pageSize: 15 }
+        });
+
+        DiscountPercent_Change();
+    });
+
+    ChargeTypeID_Change = function () {
+
+        var jsonParameters = { "roomID": $("#RoomID").val(), "chargeTypeID": $("#ChargeTypeID").val(), "arrivalDate": $('#BillingMaster_ArrivalDate').val(), "departureDate": $('#BillingMaster_DepartureDate').val() };
+
+        $.ajax({
+            url: '@Url.Action("GetDurationAmount", "Home")',
+            data: JSON.stringify(jsonParameters),
+            type: 'POST',
+            contentType: 'application/json;',
+            dataType: 'json',
+            success: function (result) {
+                $("#BillingMaster_ChargeDuration").data("kendoNumericTextBox").value(result.ChargeDuration);
+                $("#BillingMaster_ChargeAmount").data("kendoNumericTextBox").value(result.ChargeAmount);
+                DiscountPercent_Change();
+            }
+        });
+    }
+
+    ServiceID_Change = function () {
+        var comboboxSerialID = $("#ServiceID").data("kendoComboBox");
+        var quantityNumeric = $("#Quantity").data("kendoNumericTextBox");
+        var unitpriceNumeric = $("#UnitPrice").data("kendoNumericTextBox");
+        var amountNumeric = $("#Amount").data("kendoNumericTextBox");
+
+        rows = comboboxSerialID.select();
+        var displayedData = $("#ServiceID").data().kendoComboBox.dataSource.view();
+
+        unitpriceNumeric.value(displayedData[rows].UnitPrice);
+        $("#UnitForSales").val(displayedData[rows].UnitForSales);
+
+
+        amountNumeric.value(quantityNumeric.value() * unitpriceNumeric.value());
+    }
+
+    Quantity_Change = function () {
+        var quantityNumeric = $("#Quantity").data("kendoNumericTextBox");
+        var unitpriceNumeric = $("#UnitPrice").data("kendoNumericTextBox");
+        var amountNumeric = $("#Amount").data("kendoNumericTextBox");
+
+        amountNumeric.value(quantityNumeric.value() * unitpriceNumeric.value());
+
+    }
+
+    DiscountPercent_Change = function () {
+        var durationAmount = $("#BillingMaster_ChargeAmount").data("kendoNumericTextBox");
+        var serviceAmount = $("#BillingMaster_ServiceAmount").data("kendoNumericTextBox");
+        var otherAmount = $("#BillingMaster_OtherAmount").data("kendoNumericTextBox");
+        var discountPercent = $("#BillingMaster_DiscountPercent").data("kendoNumericTextBox");
+        var discountAmount = $("#BillingMaster_DiscountAmount").data("kendoNumericTextBox");
+        var totalAmount = $("#BillingMaster_TotalAmount").data("kendoNumericTextBox");
+        var advancePayment = $("#BillingMaster_AdvancePayment").data("kendoNumericTextBox");
+        var totalAmountDue = $("#TotalAmountDue").data("kendoNumericTextBox");
+
+        var totalAmountBeforeDiscount = durationAmount.value() + serviceAmount.value() + otherAmount.value();
+
+        if (discountPercent.value() > 0)
+            discountAmount.value(totalAmountBeforeDiscount * discountPercent.value() / 100);
+        else
+            discountAmount.value(0);
+
+        totalAmount.value(durationAmount.value() + serviceAmount.value() + otherAmount.value() - discountAmount.value());
+        totalAmountDue.value(totalAmount.value() - advancePayment.value());
+    }
+
+    DiscountAmount_Change = function () {
+        var durationAmount = $("#BillingMaster_ChargeAmount").data("kendoNumericTextBox");
+        var serviceAmount = $("#BillingMaster_ServiceAmount").data("kendoNumericTextBox");
+        var otherAmount = $("#BillingMaster_OtherAmount").data("kendoNumericTextBox");
+        var discountPercent = $("#BillingMaster_DiscountPercent").data("kendoNumericTextBox");
+        var discountAmount = $("#BillingMaster_DiscountAmount").data("kendoNumericTextBox");
+        var totalAmount = $("#BillingMaster_TotalAmount").data("kendoNumericTextBox");
+        var advancePayment = $("#BillingMaster_AdvancePayment").data("kendoNumericTextBox");
+        var totalAmountDue = $("#TotalAmountDue").data("kendoNumericTextBox");
+
+        var totalAmountBeforeDiscount = durationAmount.value() + serviceAmount.value() + otherAmount.value();
+
+        if (totalAmountBeforeDiscount > 0) {
+            discountPercent.value(Math.round((discountAmount.value() * 100) / totalAmountBeforeDiscount).toFixed(2));
+        }
+        else {
+            discountPercent.value(0);
+        }
+
+        totalAmount.value(durationAmount.value() + serviceAmount.value() + otherAmount.value() - discountAmount.value());
+        totalAmountDue.value(totalAmount.value() - advancePayment.value());
+
+        totalAmount.value(durationAmount.value() + serviceAmount.value() + otherAmount.value() - discountAmount.value());
+        totalAmountDue.value(totalAmount.value() - advancePayment.value());
+    }
+
+    function SetServiceAmount() {
+        var grid = $("#grid").data("kendoGrid");
+        var data = grid.dataSource.data();
+        var ServiceAmount = 0;
+        for (var i = 0; i < data.length; i++) {
+            var amount = data[i].Amount ? data[i].Amount.replace(/,/g, '') : 0;
+            ServiceAmount += parseInt(amount);
+        }
+        var quantityNumeric = $("#BillingMaster_ServiceAmount").data("kendoNumericTextBox");
+        quantityNumeric.value(ServiceAmount);
+
+        DiscountPercent_Change();
+
+    }
+
+    function ReplaceNumberWithCommas(yourNumber) {
+        //Seperates the components of the number
+        var n = yourNumber.toString().split(".");
+        //Comma-fies the first part
+        n[0] = n[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        //Combines the two sections
+        return n.join(".");
+    }
+
+    function RemoveSelectedRow() {
+        var grid = $("#grid").data("kendoGrid");
+        var selectedRow = grid.dataItem(grid.select());
+        grid.dataSource.remove(selectedRow);
+        SetServiceAmount();
+    }
+
+    function InsertNewRow() {
+        var grid = $("#grid").data("kendoGrid");
+        var combobox = $("#ServiceID").data("kendoComboBox");
+        if (combobox.input.val() != "" && $("#Quantity").val() > 0) {
+            var anis = {
+                ServiceID: $("#ServiceID").val(), ServiceName: combobox.input.val(), Unit: $("#UnitForSales").val(),
+                Quantity: ReplaceNumberWithCommas($("#Quantity").val()), UnitPrice: ReplaceNumberWithCommas($("#UnitPrice").val()), Amount: ReplaceNumberWithCommas($("#Amount").val()), Remarks: " ", Action: '<input type="button" value="Xóa" class="btn btn-default" onclick="RemoveSelectedRow()" />'
+            };
+            grid.dataSource.insert(anis);
+            SetServiceAmount();
+        }
+    }
+
+    function Print() {
+        var billingID = $("#BillingID").val();
+        url1 = '@Url.Action("Print", "Home")';
+        url2 = url1 + "/" + billingID;
+        var mywindow1 = CreatePopUp("Print", "400px");
+        mywindow1.open();
+        mywindow1.refresh(url2);
+
+    }
+
+    function CreatePopUp(popuptitle, widthsize) {
+        $("#popupWindow1").append("<div id='window1'></div>");
+        var mywindow1 = $("#window1")
+        .kendoWindow({
+            width: widthsize,
+            actions: ["Close"],
+            title: popuptitle,
+            visible: false,
+            resizable: false,
+            modal: true,
+            deactivate: function () {
+                this.destroy();
+                this.close();
+
+                @*//window.location.href = '@Url.Action("Index","Home")';*@
+            }
+        }).data("kendoWindow");
+        return mywindow1;
+    }
+
+
+    function Billing_save(saveflag) {
+
+        // Step 1: Read View Data and Create JSON Object
+
+        if (!$("#BillingMaster_CustomerIdentityNo").valid()) {
+            return false;
+        }
+
+
+
+        // Creating BillingDetail Json Object
+        var billingdetail = { "BillingID": "", "ServiceID": "", "Quantity": "", "UnitPrice": "", "Amount": "", "Remarks": " " };
+
+        // Creating BillingMaster Json Object
+        var billingmaster = { "BillingID": "", "BillingDate": "", "BillingReference": "", "RoomID": "", "ArrivalDate": "", "DepartureDate": "", "CustomerName": " ", "CustomerIdentityNo": " ", "CustomerSex": " ", "CustomerAddress": " ", "CustomerTelephone": " ", "CustomerNationality": " ", "ChargeTypeID": "1", "ChargeDuration": "0", "ChargeAmount": "0", "ServiceAmount": "0", "OtherAmount": "0", "DiscountPercent": "0", "DiscountAmount": "0", "TotalAmount": "0", "AdvancePayment": "0", "IsPaidByATMCard": "", "IsCheckOut": "", "Description": " ", "Remarks": " ", "BookingID": "", "BillingDetails": [] };
+
+        //// Set Billing Master Value
+        billingmaster.BillingID = $("#BillingID").val();
+        billingmaster.BillingDate = $('#BillingMaster_BillingDate').val();
+        billingmaster.BillingReference = $("#BillingMaster_BillingReference").val();
+        billingmaster.RoomID = $("#RoomID").val();
+        billingmaster.ArrivalDate = $('#BillingMaster_ArrivalDate').val();
+        billingmaster.DepartureDate = $('#BillingMaster_DepartureDate').val();
+        billingmaster.CustomerName = $("#BillingMaster_CustomerName").val();
+        billingmaster.CustomerIdentityNo = $("#BillingMaster_CustomerIdentityNo").val();
+        billingmaster.ChargeTypeID = $("#ChargeTypeID").val();
+        billingmaster.ChargeDuration = $("#BillingMaster_ChargeDuration").val();
+        billingmaster.ChargeAmount = $("#BillingMaster_ChargeAmount").val();
+        billingmaster.ServiceAmount = $("#BillingMaster_ServiceAmount").data("kendoNumericTextBox").value();
+        billingmaster.OtherAmount = $("#BillingMaster_OtherAmount").data("kendoNumericTextBox").value();
+        billingmaster.DiscountPercent = $("#BillingMaster_DiscountPercent").data("kendoNumericTextBox").value();
+        billingmaster.DiscountAmount = $("#BillingMaster_DiscountAmount").data("kendoNumericTextBox").value();
+        billingmaster.TotalAmount = $("#BillingMaster_TotalAmount").data("kendoNumericTextBox").value();
+        billingmaster.AdvancePayment = $("#BillingMaster_AdvancePayment").data("kendoNumericTextBox").value();
+        billingmaster.IsPaidByATMCard = $("#BillingMaster_IsPaidByATMCard").val();
+        billingmaster.Remarks = $("#BillingMaster_Remarks").val() == "" ? " " : $("#BillingMaster_Remarks").val();
+
+        billingmaster.Description = $("#BillingMaster_Description").val() == "" ? " " : $("#BillingMaster_Description").val();
+        billingmaster.CustomerAddress = $("#BillingMaster_CustomerAddress").val() == "" ? " " : $("#BillingMaster_CustomerAddress").val();
+        billingmaster.CustomerTelephone = $("#BillingMaster_CustomerTelephone").val() == "" ? " " : $("#BillingMaster_CustomerTelephone").val();
+        billingmaster.CustomerNationality = $("#BillingMaster_CustomerNationality").val() == "" ? " " : $("#BillingMaster_CustomerNationality").val();
+        billingmaster.IsCheckOut = $("#BillingMaster_IsCheckOut").val();
+        billingmaster.BookingID = $("#BillingMaster_BookingID").val();
+
+        if (saveflag == 2) {
+            billingmaster.IsCheckOut = 1;
+        }
+
+        var grid = $("#grid").data("kendoGrid");
+        var data = grid.dataSource.data();
+
+        for (var i = 0; i < data.length; i++) {
+
+            billingdetail.BillingID = $('#BillingID').val();
+            // Set SalesSub individual Value
+            billingdetail.ServiceID = data[i].ServiceID;
+            billingdetail.Quantity = data[i].Quantity ? data[i].Quantity.replace(/,/g, '') : 0;
+            billingdetail.UnitPrice = data[i].UnitPrice ? data[i].UnitPrice.replace(/,/g, '') : 0;
+            billingdetail.Amount = data[i].Amount ? data[i].Amount.replace(/,/g, '') : 0;
+            billingdetail.Remarks = data[i].Remarks ? data[i].Remarks : " ";
+            // adding to SalesMain.SalesSub List Item
+            billingmaster.BillingDetails.push(billingdetail);
+            billingdetail = { "BillingID": "", "ServiceID": "", "Quantity": "", "UnitPrice": "", "Amount": "", "Remarks": " " };
+
+        }
+        // Step 1: Ends Here
+
+
+        // Set 2: Ajax Post
+        // Here i have used ajax post for saving/updating information
+        $.ajax({
+            url: '@Url.Action("Save","Home")',
+            data: JSON.stringify(billingmaster),
+            type: 'POST',
+            contentType: 'application/json;',
+            dataType: 'json',
+            success: function (result) {
+
+
+                if (result.Success == "1") {
+                    if (saveflag == 2 || saveflag == 3) {
+                        printBillingReceipt();
+                    }
+                    if (saveflag == 1 || saveflag == 2) {
+                        window.parent.$("#window").data("kendoWindow").close();
+                        window.parent.$('#roomlist').load('@Url.Action("GetRoomList", "Home")');
+                    }
+                }
+                else {
+                    alert(result.ex);
+                }
+            }
+        });
+    }
+
+    function printBillingReceipt() {
+        var billingID = $("#BillingID").val();
+        url1 = '@Url.Action("Print", "Home")';
+        url2 = url1 + "/" + billingID;
+        //var mywindow1 = CreatePopUp("Print", "400px");
+        //mywindow1.open();
+        //mywindow1.refresh(url2);
+
+        window.open(url2);
+    }
+
+</script>

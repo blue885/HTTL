@@ -1,0 +1,39 @@
+﻿@using Microsoft.AspNet.Identity
+@model IEnumerable<MVCModel.Models.ListHotel>
+
+<ul id="categories">
+    @foreach (var item in Model)
+    {
+        <li>
+            <a href="@Url.Action("Index", "Home",
+            new { id = item.HotelID })">
+                <img alt="@item.Description"
+                     src="~/Content/Images/MetroHotelBlue48.png" />
+                <span>@item.Description</span>
+            </a>
+        </li>
+    }      
+    @if (Request.IsAuthenticated)
+    {
+        @(Html.Kendo().Window()
+                .Name("windowchat")
+                .Title("Chat")
+                .Actions(actions => actions.Minimize().Pin())
+                .Content(@<text>
+                    <label id="lblUserName" style="width:180px;" hidden=" hidden">@User.Identity.GetUserName()</label>
+                    <textarea style="width:180px; height:180px; margin-left: 2px; border-color: silver; background-color:transparent; color: #222523" readonly="readonly" id="discussion"></textarea>
+                    <input type="text" class="k-textbox" id="message" style="width: 180px" />                    
+                    <input type="hidden" style="width:180px;" id="displayname" />                     
+                </text>
+            )            
+            .Width(200)
+            .Height(230)
+            .Pinned(true)            
+            .Draggable(true)
+            .Visible(false)
+        )
+    } 
+</ul>
+
+
+

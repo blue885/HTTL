@@ -1,0 +1,148 @@
+﻿@model HotelManager.ViewModels.BillingRoomViewModel
+
+@{
+    ViewBag.Title = "ChangeRoom";
+    Layout = "~/Views/Shared/_LayoutPopupWindow.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="div-main">
+        
+        @Html.HiddenFor(model => model.BillingID)
+
+        <div class="control-group">
+            <div class="col-custom">
+                <label class="label-group">
+                    @Html.LabelFor(model => model.RoomID, htmlAttributes: new { @class = "control-label-custom" })
+                    @(Html.Kendo().ComboBoxFor(model => model.RoomID)
+                            .Name("RoomID")
+                            .DataTextField("Description")
+                            .DataValueField("RoomID")
+                            .Filter("contains")
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("GetActiveRoom", "ListRooms", new { hotelID = Model.HotelID, roomCategoryID = Model.RoomCategoryID, roomID = Model.RoomID});
+                                })
+                            .ServerFiltering(false);
+                            }).HtmlAttributes(new { @class = "form-custom" }).Enable(false)
+                    )
+                </label>
+            </div>
+
+            <div class="col-custom">
+                <label class="label-group">
+                    @Html.LabelFor(model => model.NewRoomID, htmlAttributes: new { @class = "control-label-custom" })
+                    @(Html.Kendo().ComboBoxFor(model => model.NewRoomID)
+                            .Name("NewRoomID")
+                            .DataTextField("Description")
+                            .DataValueField("RoomID")
+                            .Filter("contains")
+                            .Height(130)
+                            .DataSource(source =>
+                            {
+                                source.Read(read =>
+                                {
+                                    read.Action("GetActiveRoom", "ListRooms", new { hotelID = Model.HotelID, roomCategoryID = Model.RoomCategoryID, roomID = 0 });
+                                })
+                            .ServerFiltering(false);
+                            }).HtmlAttributes(new { @class = "form-custom" })
+                    )
+                </label>
+                @Html.ValidationMessageFor(model => model.NewRoomID, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col-custom">
+                <label class="label-group">
+                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label-custom" })
+                    @Html.Kendo().MaskedTextBoxFor(model => model.Description).HtmlAttributes(new { @class = "form-custom" })
+
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="edit-buttons">
+        <hr class="hr-in-edit-button" />
+        <input id="changeBillingRoomButton" type="button" value="Chuyển phòng" class="k-button custom-button" onclick="ChangeBillingRoom_save()" />
+    </div>
+}
+
+<script>
+
+
+    function ChangeBillingRoom_save() {
+
+        var isvalid = false;
+
+        if (!$("#NewRoomID").valid()) {
+            isvalid = true;
+        }
+
+        if (!$("#Description").valid()) {
+            isvalid = true;
+        }
+
+        if (isvalid == true)
+            return false;
+
+
+        // Step 1: Read View Data and Create JSON Object
+        var billingRoomViewModel = { "BillingID": "0", "RoomID": "0", "NewRoomID": "0", "Description": "" };
+
+        billingRoomViewModel.BillingID = $("#BillingID").val();
+        billingRoomViewModel.RoomID = $('#RoomID').val();
+        billingRoomViewModel.NewRoomID = $("#NewRoomID").val();
+        billingRoomViewModel.Description = $("#Description").val();
+
+        // Set 2: Ajax Post
+        $.ajax({
+            url: '@Url.Action("ChangeBillingRoom", "Home")',
+            data: JSON.stringify(billingRoomViewModel),
+            type: 'POST',
+            contentType: 'application/json;',
+            dataType: 'json',
+            success: function (result) {
+                if (result.Success == "1") {
+                    window.parent.$("#window").data("kendoWindow").close();
+                    window.parent.$('#roomlist').load('@Url.Action("GetRoomList", "Home")');
+                }
+                else {
+                    alert(result.ex);
+                }
+            }
+        });
+    }
+</script>
+
+<link href="@Url.Content("~/Content/CustomCss/PopupOneColumn.css")" rel="stylesheet" type="text/css" />
+
+<style type="text/css">
+    .div-main {
+        overflow: auto;
+        width: 490px;
+        max-height: 190px;
+        height: 190px;
+    }
+
+    .text-danger {
+        width: 400px;
+        float: right;
+        right: 5px;
+    }
+
+    .form-custom {
+        margin-bottom: 2px;
+        margin-top: 2px;
+    }
+</style>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+

@@ -1,0 +1,484 @@
+﻿@model HotelManager.ViewModels.HomeViewModel
+@using HotelManager.Configuration
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div id="popupWindow" style="position: absolute"></div>
+
+<table>
+    <tr>
+        <td>
+            <div id="roomlist">
+                @Html.Partial("RoomList", Model)
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div id="scheduler-div" style="margin-bottom:22px; margin-top:10px">
+                @Html.Partial("SchedulerView")
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div id="popupWindowDetail"></div>
+            <div id="scheduler-div" style="margin-bottom:22px; margin-top:10px">
+                @Html.Partial("BillingLog")
+            </div>
+        </td>
+    </tr>
+</table>
+
+<ul class="k-column-menu" id="contextmenu" style=" display:none; position: absolute; background-color:white; border-style:solid; border-width:1px;">
+    @foreach (var listContextMenu in Model.ListContextMenus)
+    {
+        if (@listContextMenu.MenuCategory == "Separator")
+        {
+            <li class='k-separator' menuseparator='1'></li>
+        }
+        else
+        {
+            <li contextmenuid=@listContextMenu.ContextMenuID menucategory=@listContextMenu.MenuCategory value=@listContextMenu.MenuValue class="contextMenuItem"> <img src="~/content/Images/@listContextMenu.MenuIcon" /> @listContextMenu.Description </li>
+        }
+    }
+</ul>
+
+<script type="text/javascript">
+
+    $(function () {
+        setInterval(function () {
+            $('#roomlist').load('@Url.Action("GetRoomList", "Home")');
+
+            $('#billingLog').data('kendoScheduler').dataSource.read();
+            $('#billingLog').data('kendoScheduler').refresh();
+        }, 10000); // every 10 sec
+        setInterval(function () {
+            if($("#isNhanPhong").val() == undefined){
+                refresh_scheduler();
+            }
+        }, 40000); // every 40 sec
+
+    });
+
+    $(document).ready(function () {
+        $(".contextMenuItem").on("click", function (e) {
+            e.preventDefault();
+            var roomID = $(this).parent().val();
+            var menucategory = $(this).attr('menucategory');
+
+            var url = "Home/ChangeRoom/" + roomID;
+
+            if(menucategory == 'RoomStatus'){
+                var roomStatusID = $(this).val();
+                var jsonParameters = {"roomID": roomID, "roomStatusID": roomStatusID};
+
+                $.ajax({
+                    url: '@Url.Action("SetRoomStatus", "ListRooms")',
+                    data: JSON.stringify(jsonParameters),
+                    type: 'POST',
+                    contentType: 'application/json;',
+                    dataType: 'json',
+                    success: function (result) {
+                        if(result == 1)
+                        {
+                            //window.location.href = '@Url.Action("index", "Home")';
+                            $('#roomlist').load('@Url.Action("GetRoomList", "Home")');
+                        }
+                        else
+                        {
+                            alert("Không cập nhật được trạng thái phòng");
+                        }
+
+                    }
+                });
+            }
+
+            if(menucategory == 'RoomAction' && $(this).attr('contextmenuid') == 5){
+
+                var jsonParameters = { "id": roomID };
+
+                $.ajax({
+                    url: '@Url.Action("GetActiveBill","Home")',
+                    data: JSON.stringify(jsonParameters),
+                    type: 'POST',
+                    contentType: 'application/json;',
+                    dataType: 'json',
+                    success: function (result) {
+                        if(result > 0){
+                            var mywindow = CreatePopUp("Chuyển phòng", "530px", "255px", result);
+                            mywindow.center().open();
+                            var url = "@Url.Action("ChangeBillingRoom", "Home", new { billingID = "billing-id", roomID = "room-id" })";
+                            url = url.replace("billing-id", result).replace("room-id", roomID);
+                            mywindow.refresh(url);
+                        }
+                        else
+                        {
+                            //window.location.href = '@Url.Action("index", "Home")';
+                            $('#roomlist').load('@Url.Action("GetRoomList", "Home")');
+                        }
+                    }
+                });
+            }
+        });
+    });
+
+    function CreatePopUp(popuptitle, widthsize, heightsize, result) {
+        $("#popupWindow").append("<div id='window'></div>");
+        var mywindow = $("#window")
+        .kendoWindow({
+            width: widthsize,
+            height: heightsize,
+            actions: ["Pin","Close"],
+            title: popuptitle,
+            //draggable: false,
+            resizable: false,
+            modal: true,
+            iframe: true,
+            pinned: true,
+            //open: function(){
+            //    this.wrapper.css({ top: 20 });
+            //},
+            deactivate: function () {
+                this.destroy();
+                this.close();
+            }
+        }).data("kendoWindow");
+        return mywindow;
+    }
+
+    function refresh_scheduler(){
+        $('#scheduler').data('kendoScheduler').dataSource.read();
+        $('#scheduler').data('kendoScheduler').refresh();
+    }
+
+    function schedulerMaster_save(e){
+        refresh_scheduler();
+    }
+
+    function scheduler_save(e) {
+
+        if($("#isNhanPhong").is(":checked"))
+        {
+            // Creating BillingMaster Json Object
+            var billingmaster = { "BillingID": "0", "BillingDate": "1/1/1900", "BillingReference": "#", "RoomID": "", "ArrivalDate": "", "DepartureDate": "", "CustomerName": "", "CustomerIdentityNo": "", "CustomerSex": "", "CustomerAddress": " ", "CustomerTelephone": " ", "CustomerNationality": " ", "ChargeTypeID": "1", "ChargeDuration": "0", "ChargeAmount": "0", "ServiceAmount": "0", "OtherAmount": "0", "DiscountPercent": "0", "DiscountAmount": "0", "TotalAmount": "0", "AdvancePayment": "0", "IsPaidByATMCard": "false", "IsCheckOut": "false", "Description": " ", "Remarks": " ", "BookingID": "0", "BillingDetails": [] };
+
+            // Set Billing Master Value
+            billingmaster.BookingID = $("#BookingID").val();
+            billingmaster.RoomID = $("#RoomID").val();
+            billingmaster.ArrivalDate = $('#ArrivalDate').data('kendoDateTimePicker').value();
+            billingmaster.DepartureDate = $('#DepartureDate').data('kendoDateTimePicker').value();
+            billingmaster.ChargeTypeID = $("#ChargeTypeID").val();
+            billingmaster.CustomerName = $("#CustomerName").val();
+            billingmaster.CustomerIdentityNo = $("#CustomerIdentityNo").val();
+            billingmaster.CustomerAddress = $("#CustomerAddress").val();
+            billingmaster.CustomerTelephone = $("#CustomerTelephone").val();
+            billingmaster.CustomerNationality = $("#CustomerNationality").val();
+            billingmaster.Remarks = $("#Remarks").val() == "" ? " " : $("#Remarks").val();
+            // Step 1: Ends Here
+
+            // Set 2: Ajax Post
+            // Here i have used ajax post for saving/updating information
+            $.ajax({
+                url: '@Url.Action("Create","Home")',
+                data: JSON.stringify(billingmaster),
+                type: 'POST',
+                contentType: 'application/json;',
+                dataType: 'json',
+                success: function (result) {
+                    if (result.Success == "1") {
+                        //window.location.href = '@Url.Action("Index","Home")';
+                        $('#roomlist').load('@Url.Action("GetRoomList", "Home")');
+                        $('#scheduler').data('kendoScheduler').dataSource.read();
+                        $('#scheduler').data('kendoScheduler').refresh();
+                    }
+                    else {
+                        alert(result.ex);
+                    }
+                }
+            });
+        }
+    }
+
+    function scheduler_add(e) {
+        jQuery('#isNhanPhong').attr('style', 'display: none;');
+        jQuery('#labelNhanPhong').attr('style', 'display: none;');
+    }
+
+    function scheduler_edit(e) {
+        roomFilter();
+    }
+
+
+
+
+    function billingLog_Add(e) {
+        e.preventDefault();
+    }
+
+    function billingLog_remove(e) {
+        e.preventDefault();
+    }
+
+
+    function billingLog_Edit(e) {
+
+        e.preventDefault();
+        if (e.event.BillingID >0)
+        {
+            var url = "@Url.Action("Details", "Home", new { id = "billing-id" })";
+            url = url.replace("billing-id", e.event.BillingID);
+        
+            var mywindow = CreatePopUp("", e.event.RoomCategoryID == "@SettingsManager.RoomCategoryRoomService"? "1050px":"800px", e.event.RoomCategoryID == "@SettingsManager.RoomCategoryRoomService"?"620px":"800px");
+            mywindow.center().open();
+            mywindow.refresh(url);
+        }
+    }
+
+    function roomTypeSelect(e){
+        roomFilter();
+    }
+
+    function roomFilter(){
+
+        var jsonParameters = { "roomTypeID": jQuery('#RoomTypeID').val() };
+
+        $.ajax({
+            url: '@Url.Action("GetRoomCategoryID", "ListRooms")',
+            data: JSON.stringify(jsonParameters),
+            type: 'POST',
+            contentType: 'application/json;',
+            dataType: 'json',
+            success: function (roomCategoryID) {
+
+                var resources1 = jQuery("#scheduler").data("kendoScheduler").resources;
+                var hotelID = jQuery('#HotelID').val();
+
+                var filter = {
+                    logic: "and",
+                    filters: [
+                        {operator: "eq", field: "HotelID", value: parseInt(hotelID)},
+                        {operator: "eq", field: "RoomCategoryID", value: parseInt(roomCategoryID)}
+                    ]
+                };
+                resources1[3].dataSource.filter(filter);
+            }
+        });
+    }
+
+</script>
+
+<script type="text/x-kendo-template" id="schedulerTemplate">
+    <input id="BookingID" name="BookingID" type="hidden" class="k-textbox" data-bind="value: BookingID" />
+    <input id="title" name="title" type="hidden" required class="k-textbox" data-bind="value: title" />
+
+    <div class="custom-div1">
+        <label id="labelNhanPhong" class="custom-label">Nhận phòng</label>
+        <div class="custom-div2">
+            <input id="isNhanPhong" name="IsNhanPhong" type="checkbox" data-type="boolean" data-bind="checked: IsNhanPhong" />
+        </div>
+    </div>
+
+    <div class="custom-div1">
+        <label class="custom-label">Ngày nhận phòng</label>
+        <div class="custom-div2">
+            <input name="Ngày nhận phòng" type="text" required data-type="date" data-role="datetimepicker" data-bind="value: start,invisible: IsNhanPhong" />
+            <input id="ArrivalDate" name="Ngày nhận phòng" type="text" required data-type="date" data-role="datetimepicker" data-bind="value: start,visible: IsNhanPhong" />
+        </div>
+    </div>
+
+    <div class="custom-div1">
+        <label class="custom-label">Ngày trả phòng</label>
+        <div class="custom-div2">
+            <input name="Ngày trả phòng" type="text" required data-type="date" data-role="datetimepicker" data-bind="value: end ,invisible:IsNhanPhong" />
+            <input id="DepartureDate" name="Ngày trả phòng" type="text" required data-type="date" data-role="datetimepicker" data-bind="value: end ,visible:IsNhanPhong" />
+        </div>
+    </div>
+
+    <div id="resourcesContainer" class="custom-div1">
+    </div>
+
+    <div id="resourcesListRoomType" class="custom-div1" data-bind="visible: IsNhanPhong">
+    </div>
+
+    <div id="resourcesListRoom" class="custom-div1" data-bind="invisible: IsNhanPhong">
+    </div>
+
+    <div class="custom-div1">
+        <label class="custom-label">CMND/Passport</label>
+        <div class="custom-div2">
+            <input id="CustomerIdentityNo" name="CMND/Passport" type="text" required class="k-textbox" data-bind="value: CustomerIdentityNo" />
+        </div>
+    </div>
+
+    <div class="custom-div1">
+        <label class="custom-label">Tên khách thuê phòng</label>
+        <div class="custom-div2">
+            <input id="CustomerName" name="CustomerName" type="text" class="k-textbox" data-bind="value: CustomerName" />
+        </div>
+    </div>
+
+    <div class="custom-div1">
+        <label class="custom-label">Địa chỉ</label>
+        <div class="custom-div2">
+            <input id="CustomerAddress" name="Địa chỉ" type="text" class="k-textbox" data-bind="value: CustomerAddress" />
+        </div>
+    </div>
+
+    <div class="custom-div1">
+        <label class="custom-label">Điện thoại</label>
+        <div class="custom-div2">
+            <input id="CustomerTelephone" name="Điện thoại" type="text" class="k-textbox" data-bind="value: CustomerTelephone" />
+        </div>
+    </div>
+
+    <div class="custom-div1">
+        <label class="custom-label">Quốc tịch</label>
+        <div class="custom-div2">
+            <input id="CustomerNationality" name="Quốc tịch" type="text" class="k-textbox" data-bind="value: CustomerNationality" />
+        </div>
+    </div>
+
+    <div class="custom-div1">
+        <label class="custom-label">Thanh toán trước</label>
+        <div class="custom-div2">
+            <input id="AdvancePayment" name="Thanh toán trước" type="text" class="k-textbox" data-bind="value: AdvancePayment" />
+        </div>
+    </div>
+
+    <div class="custom-div1">
+        <label class="custom-label">Ghi chú</label>
+        <div class="custom-div2">
+            <input id="Remarks" name="Ghi chú" type="text" class="k-textbox" data-bind="value: Remarks" />
+        </div>
+    </div>
+
+    <script>
+
+        jQuery(function() {
+            var container = jQuery("\#resourcesContainer");
+            var listRoom = jQuery("\#resourcesListRoomType");
+            var listRoomType = jQuery("\#resourcesListRoom");
+            var resources = jQuery("\#scheduler").data("kendoScheduler").resources;
+
+            //Hotel
+            container.append("<label class='custom-label'>Khách sạn</lable>")
+            container.append("<div id='resourcediv0' class='custom-div2'></div>")
+
+            jQuery(kendo.format('<select id="HotelID" readonly="readonly" data-bind="value: {0}" name="{0}">', resources[0].field))
+            .appendTo(jQuery("\#resourcediv0"))
+            .kendoDropDownList({
+                dataTextField: resources[0].dataTextField,
+                dataValueField: resources[0].dataValueField,
+                dataSource: resources[0].dataSource,
+                valuePrimitive: resources[0].valuePrimitive,
+                optionLabel: " ",
+                template: kendo.format('<span class="k-scheduler-mark" style="background-color:\#= data.{0}?{0}:"none" \#"></span>\#={1}\#', resources[0].dataColorField, resources[0].dataTextField)
+            });
+
+            //RoomType
+            listRoomType.append("<label class='custom-label'>Loại phòng</lable>")
+            listRoomType.append("<div id='resourcediv1' class='custom-div2'></div>")
+
+            jQuery(kendo.format('<select id="RoomTypeID" required data-change="roomTypeSelect" data-bind="value: {0}" name="{0}">', resources[1].field))
+            .appendTo(jQuery("\#resourcediv1"))
+            .kendoDropDownList({
+                dataTextField: resources[1].dataTextField,
+                dataValueField: resources[1].dataValueField,
+                dataSource: resources[1].dataSource,
+                valuePrimitive: resources[1].valuePrimitive,
+                optionLabel: " ",
+                template: kendo.format('<span class="k-scheduler-mark" style="background-color:\#= data.{0}?{0}:"none" \#"></span>\#={1}\#', resources[1].dataColorField, resources[1].dataTextField)
+            });
+
+            //ChargeType
+            container.append("<label class='custom-label'>Thuê theo</lable>")
+            container.append("<div id='resourcediv2' class='custom-div2'></div>")
+
+            jQuery(kendo.format('<select id="ChargeTypeID" required data-bind="value: {0}" name="{0}">', resources[2].field))
+            .appendTo(jQuery("\#resourcediv2"))
+            .kendoDropDownList({
+                dataTextField: resources[2].dataTextField,
+                dataValueField: resources[2].dataValueField,
+                dataSource: resources[2].dataSource,
+                valuePrimitive: resources[2].valuePrimitive,
+                //optionLabel: " ",
+                //template: kendo.format('<span class="k-scheduler-mark" style="background-color:\#= data.{0}?{0}:"none" \#"></span>\#={1}\#', resources[2].dataColorField, resources[2].dataTextField)
+            });
+
+            //Room
+            listRoom.append("<label class='custom-label'>Phòng</lable>")
+            listRoom.append("<div id='resourcediv3' class='custom-div2'></div>")
+            resources[3].dataSource.read();
+            jQuery(kendo.format('<select id="RoomID" data-bind="value: {0}" name="{0}">', resources[3].field))
+            .appendTo(jQuery("\#resourcediv3"))
+            .kendoDropDownList({
+                dataTextField: resources[3].dataTextField,
+                dataValueField: resources[3].dataValueField,
+                dataSource: resources[3].dataSource,
+                valuePrimitive: resources[3].valuePrimitive,
+                optionLabel: " ",
+                template: kendo.format('<span class="k-scheduler-mark" style="background-color:\#= data.{0}?{0}:"none" \#"></span>\#={1}\#', resources[3].dataColorField, resources[3].dataTextField)
+            });
+
+
+            $("\#isNhanPhong").change(function(e){
+                if($(this).is(':checked') == true){
+                    var todayDate = kendo.toString(kendo.parseDate(new Date()), 'dd/MM/yyyy h:mm tt');
+                    $("\#ArrivalDate").data("kendoDateTimePicker").value(todayDate);
+                    $("\#ArrivalDate").data("kendoDateTimePicker").readonly(true);
+                }
+                else{
+                    $("\#ArrivalDate").data("kendoDateTimePicker").readonly(false);
+                }
+            });
+        })
+        <\/script>
+    </script>
+
+    <style type="text/css">
+        .grid-class {
+            width: 940px;
+        }
+
+        .custom-label {
+            margin-left: 10px;
+            margin-top: 3px;
+            width: 150px;
+            float: left;
+        }
+
+        .custom-div2 {
+            margin-left: 10px;
+            width: 200px;
+            float: left;
+        }
+
+        .custom-div1 {
+            margin-left: 50px;
+            height: 20px;
+            margin-top: 10px;
+        }
+
+        h3 {
+            color: #967014;
+        }
+
+        #AdvancePayment {
+            text-align: right;
+            padding-right: 5px;
+        }
+
+
+        /*.k-scheduler-toolbar,*/
+        .k-scheduler-footer {
+            /* make them invisible */
+            display: none;
+            /* prevent height and paddings from influencing the size calculations */
+            height: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>

@@ -1,0 +1,28 @@
+﻿@model HotelManager.ViewModels.BillingViewModels
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutPopupWindow.cshtml";
+}
+
+@Html.Partial("_Edit", Model)
+
+<link href="@Url.Content("~/Content/CustomCss/PopupFourColumn.css")" rel="stylesheet" type="text/css" />
+
+<style type="text/css">
+    .div-main {
+        margin-top: 15px;
+        overflow: auto;
+        max-height: 560px;
+        height: 560px;
+        width: 960px;
+    }
+
+    .detail-controls {
+        display: none;
+    }
+</style>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

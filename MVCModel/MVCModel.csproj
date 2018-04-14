@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EAB6FC2D-D96A-41AE-9958-053DDB440155}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MVCModel</RootNamespace>
+    <AssemblyName>MVCModel</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseModel.cs" />
+    <Compile Include="BaseEntity.cs" />
+    <Compile Include="Models\ActiveRoom.cs">
+      <DependentUpon>HotelManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserHotel.cs">
+      <DependentUpon>HotelManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BillingDetail.cs">
+      <DependentUpon>HotelManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BillingDetailFull.cs">
+      <DependentUpon>HotelManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BillingList.cs">
+      <DependentUpon>HotelManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BillingMaster.cs">
+      <DependentUpon>HotelManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BookingMaster.cs">
+      <DependentUpon>HotelManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IBaseDetailEntity.cs" />
+    <Compile Include="IBaseEntity.cs" />
+    <Compile Include="IPrimitiveEntity.cs" />
+    <Compile Include="Models\HotelFloorLevel.cs">
+      <DependentUpon>HotelManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HotelManager.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HotelManager.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HotelManager.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HotelManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HotelManager.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HotelManager.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HotelManagerMetaData.cs" />
+    <Compile Include="Models\HotelManagerPartialClasses.cs" />
+    <Compile Include="Models\HotelRoom.cs">
+      <DependentUpon>HotelManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ListChargeRate.cs">
+      <DependentUpon>HotelManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ListChargeType.cs">
+      <DependentUpon>HotelManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ListContextMenu.cs">
+      <DependentUpon>HotelManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ListHotel.cs">
+      <DependentUpon>HotelManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ListLocation.cs">
+      <DependentUpon>HotelManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ListRoom.cs">
+      <DependentUpon>HotelManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ListRoomCategory.cs">
+      <DependentUpon>HotelManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ListRoomStatuses.cs">
+      <DependentUpon>HotelManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ListRoomType.cs">
+      <DependentUpon>HotelManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ListService.cs">
+      <DependentUpon>HotelManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\HotelManagerEntities.cs" />
+    <Compile Include="Models\HotelManagerExtensions.cs" />
+    <Compile Include="Models\OverStockItem.cs">
+      <DependentUpon>HotelManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PurchaseInvoice.cs">
+      <DependentUpon>HotelManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PurchaseInvoiceDetail.cs">
+      <DependentUpon>HotelManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\VolumnChargeRate.cs">
+      <DependentUpon>HotelManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Validations\DatabaseConcurrencyException.cs" />
+    <Compile Include="Validations\DatabaseValidationErrors.cs" />
+    <Compile Include="Validations\GeneralError.cs" />
+    <Compile Include="Validations\IBaseError.cs" />
+    <Compile Include="Validations\IValidationErrors.cs" />
+    <Compile Include="Validations\PropertyError.cs" />
+    <Compile Include="Validations\ValidationErrors.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <EntityDeploy Include="Models\HotelManager.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>HotelManager.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Models\HotelManager.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>HotelManager.edmx</DependentUpon>
+      <LastGenOutput>HotelManager.Context.cs</LastGenOutput>
+    </None>
+    <None Include="Models\HotelManager.edmx.diagram">
+      <DependentUpon>HotelManager.edmx</DependentUpon>
+    </None>
+    <None Include="Models\HotelManager.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>HotelManager.edmx</DependentUpon>
+      <LastGenOutput>HotelManager.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Helpers\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

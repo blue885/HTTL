@@ -1,0 +1,72 @@
+﻿.div-main{
+    margin-top: 15px;        
+    padding-left:0px;    
+}
+
+.form-left{
+    display: none;    
+}
+
+.form-right{
+    width: 720px;
+    border: purple solid 0px; 
+    float: left;
+}
+
+.form-custom {
+    width: 200px;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+}
+
+.form-numeric {
+    width: 140px;
+}
+
+.form-name {
+    width: 160px;
+    margin-left: 0px;
+}
+
+.form-quantity {
+    width: 90px;
+}
+
+.label-custom2 {
+    width: 200px;
+}
+
+.control-group {        
+    margin-bottom: 10px;
+}
+
+.control-group2 {
+    margin-left: 250px;
+}
+
+.left-group {
+    margin-bottom: 0px;
+}
+
+.form-small {
+    width: 150px;
+}
+
+.form-unit {
+    width: 60px;
+}
+
+.edit-buttons-in{
+    float: right;
+    margin-right: 10px;
+}
+
+.label-left{
+    margin-top: 2px;
+    margin-bottom: 1px;
+    padding-bottom: 1px;
+}
+
+.div-sum-hotel{
+    display: none;
+}
