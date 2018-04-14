@@ -1,0 +1,14 @@
+
+*.mdf
+HotelManager/App_Data/HotelManager_log.ldf
+HotelManager/bin/HotelManager.dll.config
+HotelManager/Web.config
+HotelManager/Web.config
+MVCModel/App.config
+HotelManager/Web.config
+MVCModel/App.config
+MVCModel/App.config
+MVCModel/App.config
+HotelManager/Web.config
+HotelManager/Web.config
+MVCModel/App.config
