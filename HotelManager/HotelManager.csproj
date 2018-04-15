@@ -277,6 +277,7 @@
     <Content Include="Content\CustomCss\PopupFourColumn.css" />
     <Content Include="Content\Images\alert1.png" />
     <Content Include="Content\Images\CafeKhach.png" />
+    <Content Include="Content\Images\CafeMenuIcon.png" />
     <Content Include="Content\Images\CafeTrong.png" />
     <Content Include="Content\Images\ChangeRoom.png" />
     <Content Include="Content\Images\Cleanup.png" />
@@ -302,6 +303,7 @@
     <Content Include="Content\Images\Fixxing48.png" />
     <Content Include="Content\Images\home-showcase.png" />
     <Content Include="Content\Images\HotelIcon.png" />
+    <Content Include="Content\Images\HotelMenuIcon.png" />
     <Content Include="Content\Images\IdleDouble48.png" />
     <Content Include="Content\Images\IdleDouble481.png" />
     <Content Include="Content\Images\IdleDouble4811 - Copy.png" />

@@ -7,12 +7,6 @@ HotelManager/Web.config
 MVCModel/App.config
 HotelManager/Web.config
 MVCModel/App.config
-MVCModel/App.config
-MVCModel/App.config
-HotelManager/Web.config
 HotelManager/Web.config
 MVCModel/App.config
-*.dll
-*.dll
-HotelManager/obj/Release/HotelManager.pdb
 .vs/HotelManager/v15/.suo
