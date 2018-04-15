@@ -20,6 +20,8 @@
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
+    <Use64BitIISExpress />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -283,7 +285,11 @@
     <Content Include="Content\Images\CoffeeBusy.png" />
     <Content Include="Content\Images\CoffeeIdle.png" />
     <Content Include="Content\Images\CoffeeIdle2.png" />
+    <Content Include="Content\Images\CoKhachPhongBon.png" />
+    <Content Include="Content\Images\CoKhachPhongDoi.png" />
+    <Content Include="Content\Images\CoKhachPhongDon.png" />
     <Content Include="Content\Images\D2.png" />
+    <Content Include="Content\Images\DonPhong.png" />
     <Content Include="Content\Images\DoubleBusy.png" />
     <Content Include="Content\Images\DoubleBusy1.ico" />
     <Content Include="Content\Images\DoubleBusy1.png" />
@@ -330,6 +336,9 @@
     <Content Include="Content\Images\New\icons\Ready.ico" />
     <Content Include="Content\Images\New\pipe-line-icon.png" />
     <Content Include="Content\Images\New\towels-icon.png" />
+    <Content Include="Content\Images\PhongBon.png" />
+    <Content Include="Content\Images\PhongDoi.png" />
+    <Content Include="Content\Images\PhongDon.png" />
     <Content Include="Content\Images\placeholder.gif" />
     <Content Include="Content\Images\placeholder1.gif" />
     <Content Include="Content\Images\placeholder2.gif" />
@@ -341,6 +350,7 @@
     <Content Include="Content\Images\SingleIdle.png" />
     <Content Include="Content\Images\SmallBusy.png" />
     <Content Include="Content\Images\SmallIdle.png" />
+    <Content Include="Content\Images\SuaChua.png" />
     <Content Include="Content\Images\table64x64.png" />
     <Content Include="Content\Images\TableBusy.png" />
     <Content Include="Content\Images\ThanhLong.png" />

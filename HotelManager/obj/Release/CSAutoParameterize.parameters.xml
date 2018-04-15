@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<parameters>
-  <parameter name="DefaultConnection-Web.config Connection String" description="DefaultConnection Connection String used in web.config by the application to access the database." defaultValue="Data Source=(LocalDb)\v11.0;AttachDbFilename=|DataDirectory|\HotelManager.mdf;Initial Catalog=HotelManager;Integrated Security=True" tags="SqlConnectionString">
-    <parameterEntry kind="XmlFile" scope="D:\\MVC\\HotelOnline\\HotelOnline\\trunk\\HotelManager\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
-  </parameter>
-  <parameter name="HotelManagerEntities-Web.config Connection String" description="HotelManagerEntities Connection String used in web.config by the application to access the database." defaultValue="metadata=res://*/Models.HotelManager.csdl|res://*/Models.HotelManager.ssdl|res://*/Models.HotelManager.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=(LocalDb)\v11.0;attachdbfilename=|DataDirectory|\HotelManager.mdf;initial catalog=HotelManager;integrated security=True;multipleactiveresultsets=True;application name=EntityFramework&quot;" tags="SqlConnectionString">
-    <parameterEntry kind="XmlFile" scope="D:\\MVC\\HotelOnline\\HotelOnline\\trunk\\HotelManager\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='HotelManagerEntities']/@connectionString" />
-  </parameter>
-</parameters>
