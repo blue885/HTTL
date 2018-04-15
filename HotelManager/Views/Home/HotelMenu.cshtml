@@ -25,6 +25,16 @@
                 </a>
             }
 
+            @if (item.Description == "Cafe")
+            {
+                <a href="@Url.Action("Index", "Home",
+            new { id = item.HotelID })">
+                    <img alt="@item.Description"
+                         src="~/Content/Images/CafeMenuIcon.png" />
+                    <span>@item.Description</span>
+                </a>
+            }
+
         </li>
     }
     @if (Request.IsAuthenticated)
