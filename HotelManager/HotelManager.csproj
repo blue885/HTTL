@@ -276,6 +276,8 @@
     <Content Include="Content\CustomCss\PopupOneColumn.css" />
     <Content Include="Content\CustomCss\PopupFourColumn.css" />
     <Content Include="Content\Images\alert1.png" />
+    <Content Include="Content\Images\CafeKhach.png" />
+    <Content Include="Content\Images\CafeTrong.png" />
     <Content Include="Content\Images\ChangeRoom.png" />
     <Content Include="Content\Images\Cleanup.png" />
     <Content Include="Content\Images\Cleanup48.png" />

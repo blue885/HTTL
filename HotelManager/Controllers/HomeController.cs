@@ -268,7 +268,7 @@ namespace HotelManager.Controllers
                 billingMaster.CustomerIdentityNo = "#";
             }
 
-            billingMaster.ChargeTypeID = 1;
+            billingMaster.ChargeTypeID = 2;
 
             billingMaster.ChargeDuration = 0;
             billingMaster.ChargeAmount = 0;
