@@ -36,7 +36,7 @@ namespace HotelManager.Controllers
             var userId = User.Identity.GetUserId();
             List<int> userHotelList = db.AspNetUserHotels.Where(w => w.UserId == userId).Select(s => s.HotelID).ToList();
 
-            var listHotel = db.ListHotels.Where(h => (h.HotelID == hotelID || hotelID == 0) && userHotelList.Contains(h.HotelID)).ToList().AsQueryable();
+            var listHotel = db.ListHotels.Where(h => (h.HotelID == hotelID || hotelID == 0) && userHotelList.Contains(h.HotelID) && h.HotelID != 2).ToList().AsQueryable();
             db.Configuration.ProxyCreationEnabled = true;
             return Json(listHotel, JsonRequestBehavior.AllowGet);
         }
