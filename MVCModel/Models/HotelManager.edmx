@@ -1047,7 +1047,7 @@
           <Property Type="String" Name="CustomerName" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="Description" Nullable="true" MaxLength="200" />
           <Property Type="String" Name="Remarks" Nullable="true" MaxLength="200" />
-          <Property Type="String" Name="PromptDescription" Nullable="true" MaxLength="32" />
+          <Property Type="String" Name="PromptDescription" Nullable="true" MaxLength="4000" />
           <Property Type="Int32" Name="RoomCategoryID" Nullable="false" />
           <Property Type="String" Name="RoomCategoryDescription" Nullable="false" MaxLength="100" />
           <Property Type="String" Name="SpanWidth" Nullable="true" MaxLength="50" />
@@ -1055,6 +1055,7 @@
           <Property Type="String" Name="MarginLeft" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="MarginRight" Nullable="true" MaxLength="50" />
           <Property Type="String" Name="IconWidth" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="RoomStatusID" Nullable="false" />
         </ComplexType>
         <EntityType Name="PurchaseInvoiceDetail">
           <Key>
@@ -1466,6 +1467,7 @@
                 <ScalarProperty Name="MarginLeft" ColumnName="MarginLeft" />
                 <ScalarProperty Name="MarginRight" ColumnName="MarginRight" />
                 <ScalarProperty Name="IconWidth" ColumnName="IconWidth" />
+                <ScalarProperty Name="RoomStatusID" ColumnName="RoomStatusID" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

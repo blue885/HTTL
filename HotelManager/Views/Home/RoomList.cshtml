@@ -3,11 +3,30 @@
 
 <div class="genre" style="width: 900px">
     <ul id="room-list">
-
+        
         @foreach (var hotelFloorLevels in Model.HotelFloorLevels)
         {
+            if(hotelFloorLevels.Description == "Hotel")
+            {
+                <li >
+                    <span class="note-billinglog-label">Phòng có khách: </span>
+                    <span class="room-status-label">@Model.TongPhongDangCoKhach&nbsp;</span>
+                    <span class="note-billinglog-label">&nbsp;Phòng OK: </span>
+                    <span class="room-status-label">@Model.TongPhongTrongOK&nbsp;</span>
+                    <span class="note-billinglog-label">&nbsp;Phòng đang dọn: </span>
+                    <span class="room-status-label">@Model.TongPhongDonPhong&nbsp;</span>
+                    <span class="note-billinglog-label">&nbsp;Phòng sửa chữa: </span>
+                    <span class="room-status-label">@Model.TongPhongSuaChua</span>
+                </li>                
+                break;
+            }
+
+        }
+
+        @foreach (var hotelFloorLevels in Model.HotelFloorLevels)
+        {            
             <li style="width: 880px; height: 135px; font-size: small ">
-                <h3 style="height: 15px; width: 900px; ">@hotelFloorLevels.Description [@hotelFloorLevels.FloorLevel] </h3>
+                <h3 style="height: 15px; width: 900px; ">@hotelFloorLevels.Description [@hotelFloorLevels.FloorLevel] </h3>              
                 @foreach (var hotelRooms in Model.HotelRooms)
                 {
                     if (hotelFloorLevels.HotelID == hotelRooms.HotelID && hotelFloorLevels.FloorLevel == hotelRooms.FloorLevel)
@@ -51,16 +70,16 @@
                         dataType: 'json',
                         success: function (result) {
                             var mywindow = CreatePopUp((result == 0 ? "Nhận phòng" : "Trả phòng"), (result == 0 ? "530px" : "1020px"), (result == 0 ? "600px" : "640px"), result);
-                            mywindow.center().open();                            
-                            mywindow.refresh(url);                            
+                            mywindow.center().open();
+                            mywindow.refresh(url);
                         }
                     });
                 }
 
                 else {
                     var mywindow = CreatePopUp("Phiếu tính tiền", "800px", "800px");
-                    mywindow.center().open();                    
-                    mywindow.refresh(url);                    
+                    mywindow.center().open();
+                    mywindow.refresh(url);
                 }
 
             }

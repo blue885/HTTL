@@ -64,7 +64,7 @@ namespace HotelManager.ViewModels
                 IsPaidByATMCard = booking.IsPaidByATMCard,
                 Remarks = booking.Remarks,
                 InActive = booking.InActive
-            }).Where(booking => booking.InActive == false && (booking.HotelID == hotelID || hotelID == 0) && userHotelList.Contains(booking.HotelID) );
+            }).Where(booking => booking.InActive == false && (booking.HotelID == hotelID || hotelID == 0) && userHotelList.Contains(booking.HotelID));
 
             return bookingMaster.AsQueryable();
 

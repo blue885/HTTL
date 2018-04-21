@@ -35,5 +35,6 @@ namespace MVCModel.Models
         public string MarginLeft { get; set; }
         public string MarginRight { get; set; }
         public string IconWidth { get; set; }
+        public int RoomStatusID { get; set; }
     }
 }

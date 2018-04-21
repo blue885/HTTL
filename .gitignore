@@ -10,3 +10,5 @@ MVCModel/App.config
 HotelManager/Web.config
 MVCModel/App.config
 .vs/HotelManager/v15/.suo
+MVCCore/bin/Release/System.Web.WebPages.xml
+MVCCore/obj/Release/DesignTimeResolveAssemblyReferencesInput.cache

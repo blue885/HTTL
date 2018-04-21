@@ -48,12 +48,21 @@ namespace HotelManager.Controllers
 
             var hotelFloorLevel = db.GetHotelFloorLevel(User.Identity.GetUserId(), id);
             var hotelRoom = db.GetHotelRoom(User.Identity.GetUserId(), id);
-            var billingLists = db.GetBillingList(User.Identity.GetUserId(), id);
+            var billingLists = db.GetBillingList(User.Identity.GetUserId(), id);            
+            List<HotelRoom> listHotelRoom = hotelRoom.ToList();
+            var phongCoKhach = listHotelRoom.Count(c => c.BillingID > 0 && c.RoomTypeID != 5);
+            var phongOK = listHotelRoom.Count(c => c.BillingID == 0 && c.RoomStatusID == 1 && c.RoomTypeID != 5);
+            var phongSuaChua = listHotelRoom.Count(c => c.BillingID == 0 && c.RoomStatusID == 2 && c.RoomTypeID != 5);
+            var phongDonPhong= listHotelRoom.Count(c => c.BillingID == 0 && c.RoomStatusID == 3 && c.RoomTypeID != 5);
 
             var homeViewModel = new HomeViewModel()
             {
                 HotelFloorLevels = hotelFloorLevel.ToList(),
-                HotelRooms = hotelRoom.ToList(),
+                HotelRooms = listHotelRoom,
+                TongPhongDangCoKhach = phongCoKhach,
+                TongPhongTrongOK = phongOK,
+                TongPhongSuaChua = phongSuaChua,
+                TongPhongDonPhong = phongDonPhong,
                 //BillingLists = billingLists.ToList(),
                 ListContextMenus = db.ListContextMenus.Where(w => w.ModuleID == 1).OrderBy(o => o.MenuOrderNo).ToList() //ModuleID == 1: Home Module
             };
@@ -68,11 +77,20 @@ namespace HotelManager.Controllers
             var hotelFloorLevel = db.GetHotelFloorLevel(User.Identity.GetUserId(), id);
             var hotelRoom = db.GetHotelRoom(User.Identity.GetUserId(), id);
             //var billingLists = db.GetBillingList(User.Identity.GetUserId(), id);
+            List<HotelRoom> listHotelRoom = hotelRoom.ToList();
+            var phongCoKhach = listHotelRoom.Count(c => c.BillingID > 0 && c.RoomTypeID != 5);
+            var phongOK = listHotelRoom.Count(c => c.BillingID == 0 && c.RoomStatusID == 1 && c.RoomTypeID != 5);
+            var phongSuaChua = listHotelRoom.Count(c => c.BillingID == 0 && c.RoomStatusID == 2 && c.RoomTypeID != 5);
+            var phongDonPhong = listHotelRoom.Count(c => c.BillingID == 0 && c.RoomStatusID == 3 && c.RoomTypeID != 5);
 
             var homeViewModel = new HomeViewModel()
             {
                 HotelFloorLevels = hotelFloorLevel.ToList(),
-                HotelRooms = hotelRoom.ToList(),
+                HotelRooms = listHotelRoom,                
+                TongPhongDangCoKhach = phongCoKhach,
+                TongPhongTrongOK = phongOK,
+                TongPhongSuaChua = phongSuaChua,
+                TongPhongDonPhong = phongDonPhong,
                 //BillingLists = billingLists.ToList(),
                 ListContextMenus = db.ListContextMenus.Where(w => w.ModuleID == 1).OrderBy(o => o.MenuOrderNo).ToList() //ModuleID == 1: Home Module
             };
@@ -98,6 +116,7 @@ namespace HotelManager.Controllers
             {
                 HotelFloorLevels = hotelFloorLevel.ToList(),
                 HotelRooms = hotelRoom.ToList(),
+                TongPhongDangCoKhach = hotelRoom.Count(c => c.BillingID > 0),
                 //BillingLists = billingLists.ToList(),
                 ListContextMenus = db.ListContextMenus.Where(w => w.ModuleID == 1).OrderBy(o => o.MenuOrderNo).ToList() //ModuleID == 1: Home Module
             };
