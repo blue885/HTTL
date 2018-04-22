@@ -640,7 +640,7 @@
           <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="ListChargeType" Relationship="Self.FK_ListChargeRate_ListChargeType" FromRole="ListChargeRate" ToRole="ListChargeType" />
           <NavigationProperty Name="ListRoomType" Relationship="Self.FK_ListChargeRate_ListRoomType" FromRole="ListChargeRate" ToRole="ListRoomType" />
-          <Property Name="ChargeVolumnFirst" Type="Int32" />
+          <Property Name="ChargeVolumnFirst" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="ListChargeType">
           <Key>
@@ -1028,7 +1028,7 @@
           <Property Type="Int32" Name="ChargeVolumn" Nullable="false" />
           <Property Type="Double" Name="ChargeRate" Nullable="false" />
           <Property Type="Double" Name="ChargeRateUpper" Nullable="false" />
-          <Property Type="Int32" Name="ChargeVolumnFirst" Nullable="true" />
+          <Property Type="Int32" Name="ChargeVolumnFirst" Nullable="false" />
         </ComplexType>
         <ComplexType Name="HotelFloorLevel">
           <Property Type="Int32" Name="HotelID" Nullable="false" />
