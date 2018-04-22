@@ -48,12 +48,12 @@ namespace HotelManager.Controllers
 
             var hotelFloorLevel = db.GetHotelFloorLevel(User.Identity.GetUserId(), id);
             var hotelRoom = db.GetHotelRoom(User.Identity.GetUserId(), id);
-            var billingLists = db.GetBillingList(User.Identity.GetUserId(), id);            
+            var billingLists = db.GetBillingList(User.Identity.GetUserId(), id);
             List<HotelRoom> listHotelRoom = hotelRoom.ToList();
             var phongCoKhach = listHotelRoom.Count(c => c.BillingID > 0 && c.RoomTypeID != 5);
             var phongOK = listHotelRoom.Count(c => c.BillingID == 0 && c.RoomStatusID == 1 && c.RoomTypeID != 5);
             var phongSuaChua = listHotelRoom.Count(c => c.BillingID == 0 && c.RoomStatusID == 2 && c.RoomTypeID != 5);
-            var phongDonPhong= listHotelRoom.Count(c => c.BillingID == 0 && c.RoomStatusID == 3 && c.RoomTypeID != 5);
+            var phongDonPhong = listHotelRoom.Count(c => c.BillingID == 0 && c.RoomStatusID == 3 && c.RoomTypeID != 5);
 
             var homeViewModel = new HomeViewModel()
             {
@@ -86,7 +86,7 @@ namespace HotelManager.Controllers
             var homeViewModel = new HomeViewModel()
             {
                 HotelFloorLevels = hotelFloorLevel.ToList(),
-                HotelRooms = listHotelRoom,                
+                HotelRooms = listHotelRoom,
                 TongPhongDangCoKhach = phongCoKhach,
                 TongPhongTrongOK = phongOK,
                 TongPhongSuaChua = phongSuaChua,
@@ -296,7 +296,7 @@ namespace HotelManager.Controllers
             billingMaster.DiscountPercent = 0;
             billingMaster.DiscountAmount = 0;
             billingMaster.TotalAmount = 0;
-            billingMaster.AdvancePayment = 0;            
+            billingMaster.AdvancePayment = 0;
 
             billingMaster.IsPaidByATMCard = false;
             billingMaster.IsCheckOut = false;
@@ -314,7 +314,7 @@ namespace HotelManager.Controllers
                 try
                 {
                     if (ModelState.IsValid)
-                    {                        
+                    {
                         db.BillingMasters.Add(billingmaster);
 
                         if (billingmaster.BookingID != null && billingmaster.BookingID != 0)
@@ -471,11 +471,13 @@ namespace HotelManager.Controllers
                 if (volumnChargeRates != null)
                 {
                     var volumnChargeRate = volumnChargeRates.First();
+                    var chagrgeVolumnNext = ((int)chargeVolumn - volumnChargeRate.ChargeVolumn - volumnChargeRate.ChargeVolumnFirst); //DO BO SUNG ChargeVolumnFirst => VI VAY: ((int)chargeVolumn - volumnChargeRate.ChargeVolumn - volumnChargeRate.ChargeVolumnFirst) CO THE < 0 (BOI VI db.GetChargeRate CHI LAY DIEU KIEN: ChargeVolumn <= @ChargeVolumn)
                     return Json(new
                     {
                         ChargeDuration = (int)chargeVolumn,
-                        ChargeAmount = volumnChargeRate.ChargeRate + ((int)chargeVolumn - volumnChargeRate.ChargeVolumn) * volumnChargeRate.ChargeRateUpper + chargeExtraValue * volumnChargeRate.ChargeRate
+                        ChargeAmount = volumnChargeRate.ChargeRate + (chagrgeVolumnNext > 0 ? chagrgeVolumnNext * volumnChargeRate.ChargeRateUpper : 0) + chargeExtraValue * volumnChargeRate.ChargeRate
                     }, JsonRequestBehavior.AllowGet);
+
                 }
                 else
                 {
