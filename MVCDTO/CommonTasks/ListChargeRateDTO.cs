@@ -25,6 +25,8 @@ namespace MVCDTO.CommonTasks
         public string ListChargeTypeDescription { get; set; }        
         [Display(Name = "Số block tính giá nhận phòng")]
         public int ChargeVolumn { get; set; }
+        [Display(Name = "Số giờ cộng thêm của đơn giá nhận phòng")]
+        public int ChargeVolumnFirst { get; set; }
         [Display(Name = "Đơn giá nhận phòng")]
         public double ChargeRate { get; set; }
         [Display(Name = "Đơn giá lưu trú dài ngày (giờ)")]
