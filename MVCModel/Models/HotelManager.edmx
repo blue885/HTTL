@@ -100,6 +100,7 @@
           <Property Name="ChargeRateUpper" Type="float" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Remarks" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ChargeVolumnFirst" Type="float" />
         </EntityType>
         <EntityType Name="ListChargeType">
           <Key>
@@ -639,6 +640,7 @@
           <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="ListChargeType" Relationship="Self.FK_ListChargeRate_ListChargeType" FromRole="ListChargeRate" ToRole="ListChargeType" />
           <NavigationProperty Name="ListRoomType" Relationship="Self.FK_ListChargeRate_ListRoomType" FromRole="ListChargeRate" ToRole="ListRoomType" />
+          <Property Name="ChargeVolumnFirst" Type="Double" />
         </EntityType>
         <EntityType Name="ListChargeType">
           <Key>
@@ -1026,6 +1028,7 @@
           <Property Type="Int32" Name="ChargeVolumn" Nullable="false" />
           <Property Type="Double" Name="ChargeRate" Nullable="false" />
           <Property Type="Double" Name="ChargeRateUpper" Nullable="false" />
+          <Property Type="Double" Name="ChargeVolumnFirst" Nullable="true" />
         </ComplexType>
         <ComplexType Name="HotelFloorLevel">
           <Property Type="Int32" Name="HotelID" Nullable="false" />
@@ -1272,6 +1275,7 @@
           <EntitySetMapping Name="ListChargeRates">
             <EntityTypeMapping TypeName="HotelManagerModel.ListChargeRate">
               <MappingFragment StoreEntitySet="ListChargeRate">
+                <ScalarProperty Name="ChargeVolumnFirst" ColumnName="ChargeVolumnFirst" />
                 <ScalarProperty Name="ChargeRateID" ColumnName="ChargeRateID" />
                 <ScalarProperty Name="RoomTypeID" ColumnName="RoomTypeID" />
                 <ScalarProperty Name="ChargeTypeID" ColumnName="ChargeTypeID" />
@@ -1430,6 +1434,7 @@
                 <ScalarProperty Name="ChargeVolumn" ColumnName="ChargeVolumn" />
                 <ScalarProperty Name="ChargeRate" ColumnName="ChargeRate" />
                 <ScalarProperty Name="ChargeRateUpper" ColumnName="ChargeRateUpper" />
+                <ScalarProperty Name="ChargeVolumnFirst" ColumnName="ChargeVolumnFirst" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

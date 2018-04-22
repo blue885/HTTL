@@ -22,6 +22,7 @@ namespace MVCModel.Models
         public double ChargeRateUpper { get; set; }
         public string Description { get; set; }
         public string Remarks { get; set; }
+        public Nullable<double> ChargeVolumnFirst { get; set; }
     
         public virtual ListChargeType ListChargeType { get; set; }
         public virtual ListRoomType ListRoomType { get; set; }

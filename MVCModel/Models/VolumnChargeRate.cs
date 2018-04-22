@@ -18,5 +18,6 @@ namespace MVCModel.Models
         public int ChargeVolumn { get; set; }
         public double ChargeRate { get; set; }
         public double ChargeRateUpper { get; set; }
+        public Nullable<double> ChargeVolumnFirst { get; set; }
     }
 }
