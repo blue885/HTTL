@@ -22,9 +22,9 @@
                 columns.Bound(p => p.ListRoomTypeDescription).Title("Loại phòng").Width(80);
                 columns.Bound(p => p.ListChargeTypeDescription).Title("Đơn vị tính").Width(150);
                 columns.Bound(p => p.Description).Title("Diễn giải").Width(200);
-                columns.Bound(p => p.ChargeVolumn).Title("ChargeVolumn").Format("{0:n0}").Filterable(false).Width(150).Hidden().HtmlAttributes(new { @class = "grid-number-column" });
-                columns.Bound(p => p.ChargeRate).Title("Đơn giá").Format("{0:n0}").Filterable(false).Width(150).HtmlAttributes(new { @class = "grid-number-column" });
-                columns.Bound(p => p.ChargeRateUpper).Title("Đơn giá phụ thu").Format("{0:n0}").Filterable(false).Width(150).HtmlAttributes(new { @class = "grid-number-column" });
+                columns.Bound(p => p.ChargeVolumn).Title("Số block tính giá nhận phòng").Format("{0:n0}").Filterable(false).Width(150).HtmlAttributes(new { @class = "grid-number-column" });
+                columns.Bound(p => p.ChargeRate).Title("Đơn giá nhận phòng").Format("{0:n0}").Filterable(false).Width(150).HtmlAttributes(new { @class = "grid-number-column" });
+                columns.Bound(p => p.ChargeRateUpper).Title("Đơn giá lưu trú dài ngày (giờ)").Format("{0:n0}").Filterable(false).Width(150).HtmlAttributes(new { @class = "grid-number-column" });
                 columns.Bound(p => p.Remarks).Title("Ghi chú").Filterable(false).Width(150).Hidden();
                 columns.Template(model => null)
                     .Width(200)

@@ -56,7 +56,8 @@ namespace HotelManager.Controllers
         public ActionResult Create()
         {
             int hotelID = Home.GetHotelID(this.HttpContext);
-            ListChargeRateViewModel listChargeRateViewModel = new ListChargeRateViewModel();            
+            ListChargeRateViewModel listChargeRateViewModel = new ListChargeRateViewModel();
+            listChargeRateViewModel.ChargeVolumn = 1;
             return View(this.TailorViewModel(listChargeRateViewModel)); //Need to call new PurchaseOrderViewModel() to ensure construct PurchaseOrderViewModel object using Constructor!
         }
 
