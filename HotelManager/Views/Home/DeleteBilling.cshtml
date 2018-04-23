@@ -1,0 +1,53 @@
+﻿@using HotelManager.Configuration
+@model HotelManager.ViewModels.DeleteBillingViewModel
+
+@{
+    ViewBag.Title = "Delete Billing";
+    //Layout = "~/Views/Shared/_LayoutPopupWindow.cshtml";
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()       
+    <div>
+        <label class="text-danger">@Model.ErrorMessage</label>
+    </div>
+    <div class="col-custom">
+        <label class="label-group">
+            @Html.LabelFor(model => model.DeleteDate, htmlAttributes: new { @class = "control-label-custom" })
+            @Html.Kendo().DatePickerFor(model => model.DeleteDate).HtmlAttributes(new { @class = "form-custom" })
+            <label>
+                @Html.ValidationMessageFor(model => model.DeleteDate, "", new { @class = "text-danger" })
+            </label>
+            <input id="submitButton" type="submit" value="Xóa" class="k-button custom-button" style="margin-left:20px;" />   
+        </label>
+    </div>
+
+}
+
+@*<script type="text/javascript">
+      function delete_click(listRoomID) {
+
+        var r = confirm("@SettingsManager.DeleteAlert");
+        if (r == true) {
+            var datapost = { 'id': listRoomID }
+            $.ajax({
+                url: '@Url.Action("DeleteBilling", "Home")',
+                data: JSON.stringify(datapost),
+                type: 'POST',
+                contentType: 'application/json;',
+                dataType: 'json',
+                success: function (result) {
+                    if (result.Success == 0) {
+                        alert(result.ex);
+                    }
+                    else {
+                        $('#listRoomGrid').data('kendoGrid').dataSource.read();
+                        $('#listRoomGrid').data('kendoGrid').refresh();
+                    }
+                }
+            });
+        }
+    }
+</script>*@

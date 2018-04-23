@@ -12,3 +12,13 @@ MVCModel/App.config
 .vs/HotelManager/v15/.suo
 MVCCore/bin/Release/System.Web.WebPages.xml
 MVCCore/obj/Release/DesignTimeResolveAssemblyReferencesInput.cache
+/MVCCore/bin/Release
+/MVCCore/obj/Release
+/MVCData/bin/Release
+/MVCData/obj/Release
+/MVCDTO/bin/Release
+/MVCModel/bin/Release
+/MVCDTO/obj/Release
+/MVCService/bin/Release
+/MVCService/obj/Release
+/packages/EntityFramework.6.1.3

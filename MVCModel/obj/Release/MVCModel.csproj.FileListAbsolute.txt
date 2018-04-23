@@ -1,0 +1,11 @@
+H:\QLKS\gitThangLong\HTTL\MVCModel\bin\Release\MVCModel.dll.config
+H:\QLKS\gitThangLong\HTTL\MVCModel\bin\Release\MVCModel.dll
+H:\QLKS\gitThangLong\HTTL\MVCModel\bin\Release\MVCModel.pdb
+H:\QLKS\gitThangLong\HTTL\MVCModel\bin\Release\EntityFramework.dll
+H:\QLKS\gitThangLong\HTTL\MVCModel\bin\Release\EntityFramework.SqlServer.dll
+H:\QLKS\gitThangLong\HTTL\MVCModel\bin\Release\EntityFramework.xml
+H:\QLKS\gitThangLong\HTTL\MVCModel\bin\Release\EntityFramework.SqlServer.xml
+H:\QLKS\gitThangLong\HTTL\MVCModel\obj\Release\MVCModel.csproj.CoreCompileInputs.cache
+H:\QLKS\gitThangLong\HTTL\MVCModel\obj\Release\MVCModel.dll
+H:\QLKS\gitThangLong\HTTL\MVCModel\obj\Release\MVCModel.pdb
+H:\QLKS\gitThangLong\HTTL\MVCModel\obj\Release\MVCModel.csprojResolveAssemblyReference.cache

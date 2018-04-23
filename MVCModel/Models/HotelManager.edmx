@@ -100,7 +100,7 @@
           <Property Name="ChargeRateUpper" Type="float" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Remarks" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="ChargeVolumnFirst" Type="int" />
+          <Property Name="ChargeVolumnFirst" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ListChargeType">
           <Key>
@@ -407,6 +407,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="DeleteBilling" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DeleteDate" Type="datetime" Mode="In" />
+        </Function>
         <Function Name="GetActiveBill" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="RoomID" Type="int" Mode="In" />
         </Function>
@@ -987,6 +990,9 @@
             <End Role="ListRoomType" EntitySet="ListRoomTypes" />
             <End Role="BookingMaster" EntitySet="BookingMasters" />
           </AssociationSet>
+          <FunctionImport Name="DeleteBilling">
+          <Parameter Name="DeleteDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="BillingDetailFull">
           <Property Type="Int32" Name="BillingID" Nullable="false" />
@@ -1567,6 +1573,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="DeleteBilling" FunctionName="HotelManagerModel.Store.DeleteBilling" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

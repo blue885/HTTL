@@ -1,0 +1,378 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="HotelManagerModelStoreContainer" CdmEntityContainer="HotelManagerEntities">
+    <EntitySetMapping Name="BillingDetails">
+      <EntityTypeMapping TypeName="HotelManagerModel.BillingDetail">
+        <MappingFragment StoreEntitySet="BillingDetail">
+          <ScalarProperty Name="BillingID" ColumnName="BillingID" />
+          <ScalarProperty Name="SerialID" ColumnName="SerialID" />
+          <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BillingMasters">
+      <EntityTypeMapping TypeName="HotelManagerModel.BillingMaster">
+        <MappingFragment StoreEntitySet="BillingMaster">
+          <ScalarProperty Name="BillingID" ColumnName="BillingID" />
+          <ScalarProperty Name="BillingDate" ColumnName="BillingDate" />
+          <ScalarProperty Name="BillingReference" ColumnName="BillingReference" />
+          <ScalarProperty Name="RoomID" ColumnName="RoomID" />
+          <ScalarProperty Name="ArrivalDate" ColumnName="ArrivalDate" />
+          <ScalarProperty Name="DepartureDate" ColumnName="DepartureDate" />
+          <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+          <ScalarProperty Name="CustomerIdentityNo" ColumnName="CustomerIdentityNo" />
+          <ScalarProperty Name="CustomerSex" ColumnName="CustomerSex" />
+          <ScalarProperty Name="CustomerAddress" ColumnName="CustomerAddress" />
+          <ScalarProperty Name="CustomerTelephone" ColumnName="CustomerTelephone" />
+          <ScalarProperty Name="CustomerNationality" ColumnName="CustomerNationality" />
+          <ScalarProperty Name="ChargeTypeID" ColumnName="ChargeTypeID" />
+          <ScalarProperty Name="ChargeDuration" ColumnName="ChargeDuration" />
+          <ScalarProperty Name="ChargeAmount" ColumnName="ChargeAmount" />
+          <ScalarProperty Name="ServiceAmount" ColumnName="ServiceAmount" />
+          <ScalarProperty Name="OtherAmount" ColumnName="OtherAmount" />
+          <ScalarProperty Name="DiscountPercent" ColumnName="DiscountPercent" />
+          <ScalarProperty Name="DiscountAmount" ColumnName="DiscountAmount" />
+          <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+          <ScalarProperty Name="AdvancePayment" ColumnName="AdvancePayment" />
+          <ScalarProperty Name="IsPaidByATMCard" ColumnName="IsPaidByATMCard" />
+          <ScalarProperty Name="IsCheckOut" ColumnName="IsCheckOut" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="BookingID" ColumnName="BookingID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BookingMasters">
+      <EntityTypeMapping TypeName="HotelManagerModel.BookingMaster">
+        <MappingFragment StoreEntitySet="BookingMaster">
+          <ScalarProperty Name="BookingID" ColumnName="BookingID" />
+          <ScalarProperty Name="BookingDate" ColumnName="BookingDate" />
+          <ScalarProperty Name="BookingReference" ColumnName="BookingReference" />
+          <ScalarProperty Name="HotelID" ColumnName="HotelID" />
+          <ScalarProperty Name="RoomTypeID" ColumnName="RoomTypeID" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="IsAllDay" ColumnName="IsAllDay" />
+          <ScalarProperty Name="ArrivalDate" ColumnName="ArrivalDate" />
+          <ScalarProperty Name="DepartureDate" ColumnName="DepartureDate" />
+          <ScalarProperty Name="StartTimezone" ColumnName="StartTimezone" />
+          <ScalarProperty Name="EndTimezone" ColumnName="EndTimezone" />
+          <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+          <ScalarProperty Name="CustomerIdentityNo" ColumnName="CustomerIdentityNo" />
+          <ScalarProperty Name="CustomerSex" ColumnName="CustomerSex" />
+          <ScalarProperty Name="CustomerAddress" ColumnName="CustomerAddress" />
+          <ScalarProperty Name="CustomerTelephone" ColumnName="CustomerTelephone" />
+          <ScalarProperty Name="CustomerNationality" ColumnName="CustomerNationality" />
+          <ScalarProperty Name="ChargeTypeID" ColumnName="ChargeTypeID" />
+          <ScalarProperty Name="AdvancePayment" ColumnName="AdvancePayment" />
+          <ScalarProperty Name="IsPaidByATMCard" ColumnName="IsPaidByATMCard" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="RecurrenceRule" ColumnName="RecurrenceRule" />
+          <ScalarProperty Name="RecurrenceID" ColumnName="RecurrenceID" />
+          <ScalarProperty Name="RecurrenceException" ColumnName="RecurrenceException" />
+          <ScalarProperty Name="InActive" ColumnName="InActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ListChargeRates">
+      <EntityTypeMapping TypeName="HotelManagerModel.ListChargeRate">
+        <MappingFragment StoreEntitySet="ListChargeRate">
+          <ScalarProperty Name="ChargeVolumnFirst" ColumnName="ChargeVolumnFirst" />
+          <ScalarProperty Name="ChargeRateID" ColumnName="ChargeRateID" />
+          <ScalarProperty Name="RoomTypeID" ColumnName="RoomTypeID" />
+          <ScalarProperty Name="ChargeTypeID" ColumnName="ChargeTypeID" />
+          <ScalarProperty Name="ChargeVolumn" ColumnName="ChargeVolumn" />
+          <ScalarProperty Name="ChargeRate" ColumnName="ChargeRate" />
+          <ScalarProperty Name="ChargeRateUpper" ColumnName="ChargeRateUpper" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ListChargeTypes">
+      <EntityTypeMapping TypeName="HotelManagerModel.ListChargeType">
+        <MappingFragment StoreEntitySet="ListChargeType">
+          <ScalarProperty Name="ChargeTypeID" ColumnName="ChargeTypeID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="HoursPerBlock" ColumnName="HoursPerBlock" />
+          <ScalarProperty Name="GraceMinutes" ColumnName="GraceMinutes" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ListContextMenus">
+      <EntityTypeMapping TypeName="HotelManagerModel.ListContextMenu">
+        <MappingFragment StoreEntitySet="ListContextMenu">
+          <ScalarProperty Name="ContextMenuID" ColumnName="ContextMenuID" />
+          <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+          <ScalarProperty Name="MenuCategory" ColumnName="MenuCategory" />
+          <ScalarProperty Name="MenuValue" ColumnName="MenuValue" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="MenuIcon" ColumnName="MenuIcon" />
+          <ScalarProperty Name="MenuOrderNo" ColumnName="MenuOrderNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ListHotels">
+      <EntityTypeMapping TypeName="HotelManagerModel.ListHotel">
+        <MappingFragment StoreEntitySet="ListHotel">
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="HotelID" ColumnName="HotelID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="HotelOrderNo" ColumnName="HotelOrderNo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ListLocations">
+      <EntityTypeMapping TypeName="HotelManagerModel.ListLocation">
+        <MappingFragment StoreEntitySet="ListLocation">
+          <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ListRooms">
+      <EntityTypeMapping TypeName="HotelManagerModel.ListRoom">
+        <MappingFragment StoreEntitySet="ListRoom">
+          <ScalarProperty Name="RoomID" ColumnName="RoomID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="HotelID" ColumnName="HotelID" />
+          <ScalarProperty Name="RoomTypeID" ColumnName="RoomTypeID" />
+          <ScalarProperty Name="RoomStatusID" ColumnName="RoomStatusID" />
+          <ScalarProperty Name="FloorLevel" ColumnName="FloorLevel" />
+          <ScalarProperty Name="NoBed" ColumnName="NoBed" />
+          <ScalarProperty Name="NoPerson" ColumnName="NoPerson" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ListRoomStatuses">
+      <EntityTypeMapping TypeName="HotelManagerModel.ListRoomStatuses">
+        <MappingFragment StoreEntitySet="ListRoomStatus">
+          <ScalarProperty Name="RoomStatusID" ColumnName="RoomStatusID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="StatusIcon" ColumnName="StatusIcon" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ListRoomTypes">
+      <EntityTypeMapping TypeName="HotelManagerModel.ListRoomType">
+        <MappingFragment StoreEntitySet="ListRoomType">
+          <ScalarProperty Name="RoomCategoryID" ColumnName="RoomCategoryID" />
+          <ScalarProperty Name="RoomTypeID" ColumnName="RoomTypeID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="IconIdle" ColumnName="IconIdle" />
+          <ScalarProperty Name="IconBusy" ColumnName="IconBusy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ListServices">
+      <EntityTypeMapping TypeName="HotelManagerModel.ListService">
+        <MappingFragment StoreEntitySet="ListService">
+          <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="UnitForSales" ColumnName="UnitForSales" />
+          <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="GetActiveBill" FunctionName="HotelManagerModel.Store.GetActiveBill" />
+    <FunctionImportMapping FunctionImportName="GetBillingDetailFull" FunctionName="HotelManagerModel.Store.GetBillingDetailFull">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HotelManagerModel.BillingDetailFull">
+          <ScalarProperty Name="BillingID" ColumnName="BillingID" />
+          <ScalarProperty Name="SerialID" ColumnName="SerialID" />
+          <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
+          <ScalarProperty Name="ServiceName" ColumnName="ServiceName" />
+          <ScalarProperty Name="UnitForSales" ColumnName="UnitForSales" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetBillingList" FunctionName="HotelManagerModel.Store.GetBillingList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HotelManagerModel.BillingList">
+          <ScalarProperty Name="BillingID" ColumnName="BillingID" />
+          <ScalarProperty Name="BillingDate" ColumnName="BillingDate" />
+          <ScalarProperty Name="BillingReference" ColumnName="BillingReference" />
+          <ScalarProperty Name="RoomID" ColumnName="RoomID" />
+          <ScalarProperty Name="RoomDescription" ColumnName="RoomDescription" />
+          <ScalarProperty Name="HotelID" ColumnName="HotelID" />
+          <ScalarProperty Name="HotelDescription" ColumnName="HotelDescription" />
+          <ScalarProperty Name="ArrivalDate" ColumnName="ArrivalDate" />
+          <ScalarProperty Name="DepartureDate" ColumnName="DepartureDate" />
+          <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+          <ScalarProperty Name="CustomerIdentityNo" ColumnName="CustomerIdentityNo" />
+          <ScalarProperty Name="ChargeTypeID" ColumnName="ChargeTypeID" />
+          <ScalarProperty Name="ChargeTypeDescription" ColumnName="ChargeTypeDescription" />
+          <ScalarProperty Name="ChargeDuration" ColumnName="ChargeDuration" />
+          <ScalarProperty Name="ChargeAmount" ColumnName="ChargeAmount" />
+          <ScalarProperty Name="ServiceAmount" ColumnName="ServiceAmount" />
+          <ScalarProperty Name="OtherAmount" ColumnName="OtherAmount" />
+          <ScalarProperty Name="DiscountPercent" ColumnName="DiscountPercent" />
+          <ScalarProperty Name="DiscountAmount" ColumnName="DiscountAmount" />
+          <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetChargeRate" FunctionName="HotelManagerModel.Store.GetChargeRate">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HotelManagerModel.VolumnChargeRate">
+          <ScalarProperty Name="RoomTypeID" ColumnName="RoomTypeID" />
+          <ScalarProperty Name="ChargeTypeID" ColumnName="ChargeTypeID" />
+          <ScalarProperty Name="ChargeVolumn" ColumnName="ChargeVolumn" />
+          <ScalarProperty Name="ChargeRate" ColumnName="ChargeRate" />
+          <ScalarProperty Name="ChargeRateUpper" ColumnName="ChargeRateUpper" />
+          <ScalarProperty Name="ChargeVolumnFirst" ColumnName="ChargeVolumnFirst" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetHotelFloorLevel" FunctionName="HotelManagerModel.Store.GetHotelFloorLevel">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HotelManagerModel.HotelFloorLevel">
+          <ScalarProperty Name="HotelID" ColumnName="HotelID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="FloorLevel" ColumnName="FloorLevel" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetHotelRoom" FunctionName="HotelManagerModel.Store.GetHotelRoom">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HotelManagerModel.HotelRoom">
+          <ScalarProperty Name="HotelID" ColumnName="HotelID" />
+          <ScalarProperty Name="RoomID" ColumnName="RoomID" />
+          <ScalarProperty Name="RoomDescription" ColumnName="RoomDescription" />
+          <ScalarProperty Name="FloorLevel" ColumnName="FloorLevel" />
+          <ScalarProperty Name="RoomRemarks" ColumnName="RoomRemarks" />
+          <ScalarProperty Name="RoomTypeID" ColumnName="RoomTypeID" />
+          <ScalarProperty Name="RoomTypeDescription" ColumnName="RoomTypeDescription" />
+          <ScalarProperty Name="NoBed" ColumnName="NoBed" />
+          <ScalarProperty Name="BillingID" ColumnName="BillingID" />
+          <ScalarProperty Name="RoomIcon" ColumnName="RoomIcon" />
+          <ScalarProperty Name="ArrivalDate" ColumnName="ArrivalDate" />
+          <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="PromptDescription" ColumnName="PromptDescription" />
+          <ScalarProperty Name="RoomCategoryID" ColumnName="RoomCategoryID" />
+          <ScalarProperty Name="RoomCategoryDescription" ColumnName="RoomCategoryDescription" />
+          <ScalarProperty Name="SpanWidth" ColumnName="SpanWidth" />
+          <ScalarProperty Name="SpanHeight" ColumnName="SpanHeight" />
+          <ScalarProperty Name="MarginLeft" ColumnName="MarginLeft" />
+          <ScalarProperty Name="MarginRight" ColumnName="MarginRight" />
+          <ScalarProperty Name="IconWidth" ColumnName="IconWidth" />
+          <ScalarProperty Name="RoomStatusID" ColumnName="RoomStatusID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SetBillingRoom" FunctionName="HotelManagerModel.Store.SetBillingRoom" />
+    <FunctionImportMapping FunctionImportName="SetRoomStatus" FunctionName="HotelManagerModel.Store.SetRoomStatus" />
+    <EntitySetMapping Name="PurchaseInvoiceDetails">
+      <EntityTypeMapping TypeName="HotelManagerModel.PurchaseInvoiceDetail">
+        <MappingFragment StoreEntitySet="PurchaseInvoiceDetails">
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="GrossAmount" ColumnName="GrossAmount" />
+          <ScalarProperty Name="VATAmount" ColumnName="VATAmount" />
+          <ScalarProperty Name="VATPercent" ColumnName="VATPercent" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
+          <ScalarProperty Name="PurchaseInvoiceID" ColumnName="PurchaseInvoiceID" />
+          <ScalarProperty Name="PurchaseInvoiceDetailID" ColumnName="PurchaseInvoiceDetailID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PurchaseInvoices">
+      <EntityTypeMapping TypeName="HotelManagerModel.PurchaseInvoice">
+        <MappingFragment StoreEntitySet="PurchaseInvoices">
+          <ScalarProperty Name="HotelID" ColumnName="HotelID" />
+          <ScalarProperty Name="UserPositionID" ColumnName="UserPositionID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="EditedDate" ColumnName="EditedDate" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="TotalGrossAmount" ColumnName="TotalGrossAmount" />
+          <ScalarProperty Name="TotalVATAmount" ColumnName="TotalVATAmount" />
+          <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+          <ScalarProperty Name="TotalQuantity" ColumnName="TotalQuantity" />
+          <ScalarProperty Name="AttentionName" ColumnName="AttentionName" />
+          <ScalarProperty Name="SupplierName" ColumnName="SupplierName" />
+          <ScalarProperty Name="PurchaseInvoiceReference" ColumnName="PurchaseInvoiceReference" />
+          <ScalarProperty Name="PurchaseInvoiceDate" ColumnName="PurchaseInvoiceDate" />
+          <ScalarProperty Name="PurchaseInvoiceID" ColumnName="PurchaseInvoiceID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="UpdateWarehouseBalance" FunctionName="HotelManagerModel.Store.UpdateWarehouseBalance" />
+    <FunctionImportMapping FunctionImportName="GetOverStockItems" FunctionName="HotelManagerModel.Store.GetOverStockItems">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HotelManagerModel.OverStockItem">
+          <ScalarProperty Name="OverStockDate" ColumnName="OverStockDate" />
+          <ScalarProperty Name="HotelID" ColumnName="HotelID" />
+          <ScalarProperty Name="HotelName" ColumnName="HotelName" />
+          <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="AspNetUserHotels">
+      <EntityTypeMapping TypeName="HotelManagerModel.AspNetUserHotel">
+        <MappingFragment StoreEntitySet="AspNetUserHotel">
+          <ScalarProperty Name="HotelID" ColumnName="HotelID" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ListRoomCategories">
+      <EntityTypeMapping TypeName="HotelManagerModel.ListRoomCategory">
+        <MappingFragment StoreEntitySet="ListRoomCategory">
+          <ScalarProperty Name="IconWidth" ColumnName="IconWidth" />
+          <ScalarProperty Name="MarginRight" ColumnName="MarginRight" />
+          <ScalarProperty Name="MarginLeft" ColumnName="MarginLeft" />
+          <ScalarProperty Name="SpanHeight" ColumnName="SpanHeight" />
+          <ScalarProperty Name="SpanWidth" ColumnName="SpanWidth" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="RoomCategoryID" ColumnName="RoomCategoryID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="GetActiveRoom" FunctionName="HotelManagerModel.Store.GetActiveRoom">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HotelManagerModel.ActiveRoom">
+          <ScalarProperty Name="RoomID" ColumnName="RoomID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="HotelID" ColumnName="HotelID" />
+          <ScalarProperty Name="RoomTypeID" ColumnName="RoomTypeID" />
+          <ScalarProperty Name="RoomCategoryID" ColumnName="RoomCategoryID" />
+          <ScalarProperty Name="RoomStatusID" ColumnName="RoomStatusID" />
+          <ScalarProperty Name="FloorLevel" ColumnName="FloorLevel" />
+          <ScalarProperty Name="NoBed" ColumnName="NoBed" />
+          <ScalarProperty Name="NoPerson" ColumnName="NoPerson" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="DeleteBilling" FunctionName="HotelManagerModel.Store.DeleteBilling" />
+  </EntityContainerMapping>
+</Mapping>

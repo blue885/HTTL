@@ -203,5 +203,14 @@ namespace MVCModel.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ActiveRoom>("GetActiveRoom", hotelIDParameter, roomCategoryIDParameter, roomIDParameter);
         }
+    
+        public virtual int DeleteBilling(Nullable<System.DateTime> deleteDate)
+        {
+            var deleteDateParameter = deleteDate.HasValue ?
+                new ObjectParameter("DeleteDate", deleteDate) :
+                new ObjectParameter("DeleteDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteBilling", deleteDateParameter);
+        }
     }
 }

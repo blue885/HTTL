@@ -104,6 +104,53 @@ namespace HotelManager.Controllers
             return PartialView("SchedulerView");
         }
 
+        [Authorize(Roles = "Admin")]
+        public ActionResult DeleteBilling()
+        {
+            DeleteBillingViewModel deleteBillingViewModel = new DeleteBillingViewModel();
+            var today = DateTime.Today;
+            var month = new DateTime(today.Year, today.Month, 1);            
+            var lastPreviousDate = month.AddDays(-1);
+            deleteBillingViewModel.DeleteDate = lastPreviousDate;
+            deleteBillingViewModel.ErrorMessage = "";
+
+            return View(deleteBillingViewModel);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        //[ValidateAntiForgeryToken]
+        public ActionResult DeleteBilling(DeleteBillingViewModel deleteBillingViewModel)
+        {
+         
+            try
+            {
+                if (!ModelState.IsValid)
+                    return View(deleteBillingViewModel);
+
+                var todayResult = DateTime.Today;
+                var monthResult = new DateTime(todayResult.Year, todayResult.Month, 1);
+                var lastDateResult = monthResult.AddDays(-1);
+
+                if (deleteBillingViewModel.DeleteDate <= lastDateResult)
+                {
+                    var result = db.DeleteBilling(deleteBillingViewModel.DeleteDate);                    
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    throw new Exception("Vui lòng chọn ngày tháng trước!!!");
+                }                
+
+            }
+            catch (Exception exception)
+            {
+                deleteBillingViewModel.ErrorMessage = exception.Message;
+                ModelState.AddValidationErrors(exception);
+                return View(deleteBillingViewModel);
+            }
+        }
+
         [OutputCache(NoStore = true, Location = OutputCacheLocation.Client, Duration = 10)]
         public ActionResult GetBillingDetail()
         {
