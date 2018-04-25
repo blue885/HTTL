@@ -107,11 +107,8 @@ namespace HotelManager.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult DeleteBilling()
         {
-            DeleteBillingViewModel deleteBillingViewModel = new DeleteBillingViewModel();
-            var today = DateTime.Today;
-            var month = new DateTime(today.Year, today.Month, 1);            
-            var lastPreviousDate = month.AddDays(-1);
-            deleteBillingViewModel.DeleteDate = lastPreviousDate;
+            DeleteBillingViewModel deleteBillingViewModel = new DeleteBillingViewModel();                        
+            deleteBillingViewModel.DeleteDate = (new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1, 14, 0, 0)).AddDays(-1);
             deleteBillingViewModel.ErrorMessage = "";
 
             return View(deleteBillingViewModel);
@@ -122,27 +119,20 @@ namespace HotelManager.Controllers
         //[ValidateAntiForgeryToken]
         public ActionResult DeleteBilling(DeleteBillingViewModel deleteBillingViewModel)
         {
-         
             try
             {
                 if (!ModelState.IsValid)
-                    return View(deleteBillingViewModel);
+                    return View(deleteBillingViewModel);                
 
-                var todayResult = DateTime.Today;
-                var monthResult = new DateTime(todayResult.Year, todayResult.Month, 1);
-                var lastDateResult = monthResult.AddDays(-1);
-
-                var monthDeleteResult = new DateTime(deleteBillingViewModel.DeleteDate.Year, deleteBillingViewModel.DeleteDate.Month, 1);
-                var lastDeleteDateResult = (monthDeleteResult.AddMonths(1)).AddDays(-1);
-
-                if (deleteBillingViewModel.DeleteDate <= lastDateResult && deleteBillingViewModel.DeleteDate == lastDeleteDateResult)
+                if (deleteBillingViewModel.DeleteDate <= (new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1, 14, 0, 0)).AddDays(-1)
+                    && deleteBillingViewModel.DeleteDate == ((new DateTime(deleteBillingViewModel.DeleteDate.Year, deleteBillingViewModel.DeleteDate.Month, 1, 14, 0, 0)).AddMonths(1)).AddDays(-1))
                 {
                     var result = db.DeleteBilling(deleteBillingViewModel.DeleteDate);                    
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-                    throw new Exception("Vui lòng chọn ngày cuối tháng!!!");
+                    throw new Exception("Vui lòng chọn 14 giờ ngày cuối tháng!!!");
                 }                
 
             }
