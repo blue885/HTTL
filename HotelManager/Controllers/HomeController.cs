@@ -132,14 +132,17 @@ namespace HotelManager.Controllers
                 var monthResult = new DateTime(todayResult.Year, todayResult.Month, 1);
                 var lastDateResult = monthResult.AddDays(-1);
 
-                if (deleteBillingViewModel.DeleteDate <= lastDateResult)
+                var monthDeleteResult = new DateTime(deleteBillingViewModel.DeleteDate.Year, deleteBillingViewModel.DeleteDate.Month, 1);
+                var lastDeleteDateResult = (monthDeleteResult.AddMonths(1)).AddDays(-1);
+
+                if (deleteBillingViewModel.DeleteDate <= lastDateResult && deleteBillingViewModel.DeleteDate == lastDeleteDateResult)
                 {
                     var result = db.DeleteBilling(deleteBillingViewModel.DeleteDate);                    
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-                    throw new Exception("Vui lòng chọn ngày tháng trước!!!");
+                    throw new Exception("Vui lòng chọn ngày cuối tháng!!!");
                 }                
 
             }
