@@ -74,6 +74,9 @@
     <Compile Include="IBaseDetailEntity.cs" />
     <Compile Include="IBaseEntity.cs" />
     <Compile Include="IPrimitiveEntity.cs" />
+    <Compile Include="Models\GetListService_Result.cs">
+      <DependentUpon>HotelManager.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\HotelFloorLevel.cs">
       <DependentUpon>HotelManager.tt</DependentUpon>
     </Compile>

@@ -374,5 +374,16 @@
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="DeleteBilling" FunctionName="HotelManagerModel.Store.DeleteBilling" />
+    <FunctionImportMapping FunctionImportName="GetListService" FunctionName="HotelManagerModel.Store.GetListService">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="HotelManagerModel.GetListService_Result">
+          <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="UnitForSales" ColumnName="UnitForSales" />
+          <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

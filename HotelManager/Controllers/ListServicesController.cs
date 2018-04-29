@@ -146,10 +146,10 @@ namespace HotelManager.Controllers
         }
 
         [AllowAnonymous]
-        public JsonResult GetListService()
+        public JsonResult GetListService(int hotelID)
         {
-            db.Configuration.ProxyCreationEnabled = false;
-            var listService = db.ListServices.OrderBy(z => z.Description).ToList();
+            db.Configuration.ProxyCreationEnabled = false;            
+            var listService = db.GetListService(hotelID).ToList();
             db.Configuration.ProxyCreationEnabled = true;
             return Json(listService.ToList(), JsonRequestBehavior.AllowGet);
         }

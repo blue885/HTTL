@@ -212,5 +212,14 @@ namespace MVCModel.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteBilling", deleteDateParameter);
         }
+    
+        public virtual ObjectResult<GetListService_Result> GetListService(Nullable<int> hotelID)
+        {
+            var hotelIDParameter = hotelID.HasValue ?
+                new ObjectParameter("HotelID", hotelID) :
+                new ObjectParameter("HotelID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetListService_Result>("GetListService", hotelIDParameter);
+        }
     }
 }
