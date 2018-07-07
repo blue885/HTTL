@@ -9,9 +9,9 @@ namespace MVCCore.Helpers
         {
             string systemInfos = SystemInfos.GetSystemInfos(true);
             //string systemInfoDecrypt = SecureEncoding.Decrypt("9AjMX2WmdH1+f1gY28KOSIrnL3TmPUpAWOsRtqiPRqvMGh2ghwBv2xaZX73H9J2HdhsEjFDPEREvvqZWNMhmNZnwzIpQM0n+8sSgl7GDLB7KbU7rEjaLkIMwkLnkPwloByCwe9AtKMRrK1iCQ+dYyd4imAny4UmhqsMVIsnK207HIOLx4f+6gtGCtXzQTaZ+Rwk/zUdHfrcaJ9//o4GZ8g=="); //E7240T
-            //string systemInfoDecrypt = SecureEncoding.Decrypt("+4hi4FwOTj23nuc+yMjaAbL9gaElR1IKN2yQmhNJIS1tZK8uAHXAI5yKHUPPXYZlSnHdGnxKm8Uz5Z3bg50e1Oua2VRsrvZvdmPx4e47opjOfMrOv2e0DRprqXkEKcnqS+wvVkC0E7Cavh6S2Ms10OwM9PGCvRKcs1XpNbY/nl1De4Q6oYadNyAIpctZz5Mzi5GfqhzWi6sPY8sy4+a8mA=="); //VCP
+            //string systemInfoDecrypt = SecureEncoding.Decrypt("fzs4+xEMFQA7okWRdpuqxOFTJrNvN56JUnHUgNb+Bw26YN2Iz61Lm07Z/Oj75O1OzVRNIID4YElyDhOILJ24O4yAGt1LNrW0yi4+4+OPv5mx8O3QFKAM85/6bmOhcOZ74o8J5AuIgB/CPmb5StrJVfVyHm6l2+ycudlq2g9w74braZrhqroN1p7rgqBmNIgzs3iCkJzw3TmG6WNq5nAh4Q=="); //VL
 
-            if (systemInfos == "9AjMX2WmdH1+f1gY28KOSIrnL3TmPUpAWOsRtqiPRqvMGh2ghwBv2xaZX73H9J2HdhsEjFDPEREvvqZWNMhmNZnwzIpQM0n+8sSgl7GDLB7KbU7rEjaLkIMwkLnkPwloByCwe9AtKMRrK1iCQ+dYyd4imAny4UmhqsMVIsnK207HIOLx4f+6gtGCtXzQTaZ+Rwk/zUdHfrcaJ9//o4GZ8g==" || systemInfos == "+4hi4FwOTj23nuc+yMjaAbL9gaElR1IKN2yQmhNJIS1tZK8uAHXAI5yKHUPPXYZlSnHdGnxKm8Uz5Z3bg50e1Oua2VRsrvZvdmPx4e47opjOfMrOv2e0DRprqXkEKcnqS+wvVkC0E7Cavh6S2Ms10OwM9PGCvRKcs1XpNbY/nl1De4Q6oYadNyAIpctZz5Mzi5GfqhzWi6sPY8sy4+a8mA==")
+            if (systemInfos == "9AjMX2WmdH1+f1gY28KOSIrnL3TmPUpAWOsRtqiPRqvMGh2ghwBv2xaZX73H9J2HdhsEjFDPEREvvqZWNMhmNZnwzIpQM0n+8sSgl7GDLB7KbU7rEjaLkIMwkLnkPwloByCwe9AtKMRrK1iCQ+dYyd4imAny4UmhqsMVIsnK207HIOLx4f+6gtGCtXzQTaZ+Rwk/zUdHfrcaJ9//o4GZ8g==" || systemInfos == "fzs4+xEMFQA7okWRdpuqxOFTJrNvN56JUnHUgNb+Bw26YN2Iz61Lm07Z/Oj75O1OzVRNIID4YElyDhOILJ24O4yAGt1LNrW0yi4+4+OPv5mx8O3QFKAM85/6bmOhcOZ74o8J5AuIgB/CPmb5StrJVfVyHm6l2+ycudlq2g9w74braZrhqroN1p7rgqBmNIgzs3iCkJzw3TmG6WNq5nAh4Q==")
                 return true;
             else
                 throw new SystemException("Copyright " + DateTime.Now.Year + ". All rights reserved." + "\r\n" + "\r\n" + "Please contact via: Tel: 0903 880 501, 0919 878 329, Skype: hieperp, Email: hieperp@gmail.com");

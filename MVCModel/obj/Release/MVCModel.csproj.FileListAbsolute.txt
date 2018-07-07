@@ -5,6 +5,6 @@ D:\MVC\G22\trunk\MVCModel\bin\Release\EntityFramework.dll
 D:\MVC\G22\trunk\MVCModel\bin\Release\EntityFramework.SqlServer.dll
 D:\MVC\G22\trunk\MVCModel\bin\Release\EntityFramework.xml
 D:\MVC\G22\trunk\MVCModel\bin\Release\EntityFramework.SqlServer.xml
-D:\MVC\G22\trunk\MVCModel\obj\Release\MVCModel.csprojResolveAssemblyReference.cache
 D:\MVC\G22\trunk\MVCModel\obj\Release\MVCModel.dll
 D:\MVC\G22\trunk\MVCModel\obj\Release\MVCModel.pdb
+D:\MVC\G22\trunk\MVCModel\obj\Release\MVCModel.csprojResolveAssemblyReference.cache

@@ -555,7 +555,7 @@ namespace HotelManager.Controllers
             ViewBag.Message = "Your application description page.";
 
             ViewBag.SystemInfos = "";// this.baseRepository.GetSystemInfos();
-            ViewBag.SecureSystemInfos = "[@@" + this.baseRepository.GetSystemInfos(true) + "@@]";
+            ViewBag.SecureSystemInfos = "[@@" + SystemInfos.GetSystemInfos(true) + "@@]";
 
             return View();
         }
