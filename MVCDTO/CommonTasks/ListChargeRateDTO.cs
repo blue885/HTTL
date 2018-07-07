@@ -42,7 +42,7 @@ namespace MVCDTO.CommonTasks
     {
         public ListChargeRateDTO()
         {
-            
+            this.ChargeVolumn = 1;
         }
     }   
 }

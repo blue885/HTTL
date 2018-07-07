@@ -21,6 +21,7 @@ using MVCCore.Enums;
 using MVCModel.Models;
 using MVCData.Repositories.CommonTasks;
 using HotelManager.Configuration;
+using MVCCore.Helpers;
 
 namespace HotelManager.Controllers
 {
@@ -353,6 +354,8 @@ namespace HotelManager.Controllers
             {
                 try
                 {
+                    SystemInfos.Validate();
+
                     if (ModelState.IsValid)
                     {
                         db.BillingMasters.Add(billingmaster);
@@ -550,6 +553,9 @@ namespace HotelManager.Controllers
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
+
+            ViewBag.SystemInfos = "";// this.baseRepository.GetSystemInfos();
+            ViewBag.SecureSystemInfos = "[@@" + this.baseRepository.GetSystemInfos(true) + "@@]";
 
             return View();
         }

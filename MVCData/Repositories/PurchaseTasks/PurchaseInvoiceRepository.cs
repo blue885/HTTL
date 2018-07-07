@@ -20,9 +20,9 @@ namespace MVCData.Repositories.PurchaseTasks
         {
             this.hotelManagerEntities = hotelManagerEntities;
 
-            SqlRoutines x = new SqlRoutines(this.hotelManagerEntities);
+            //SqlRoutines x = new SqlRoutines(this.hotelManagerEntities);
 
-            x.RestoreProcedure();
+            //x.RestoreProcedure();
 
         }
 

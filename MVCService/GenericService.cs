@@ -8,6 +8,7 @@ using MVCModel;
 using MVCDTO;
 using MVCCore.Repositories;
 using MVCCore.Services;
+using MVCCore.Helpers;
 
 
 namespace MVCService
@@ -49,6 +50,8 @@ namespace MVCService
 
         public virtual bool Save(TDto dto)
         {
+            SystemInfos.Validate();
+
             using (var dbContextTransaction = this.genericRepository.BeginTransaction())
             {
                 try
